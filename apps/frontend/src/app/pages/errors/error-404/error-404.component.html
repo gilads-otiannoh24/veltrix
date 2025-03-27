@@ -1,0 +1,183 @@
+<div class="flex items-center justify-center min-h-screen px-4 bg-base-100">
+  <div class="w-full max-w-4xl">
+    <!-- Veltrix Logo -->
+    <div class="flex justify-center mb-8">
+      <div class="flex items-center">
+        <app-logo class="mr-4"></app-logo>
+        <span
+          class="text-3xl font-bold text-transparent bg-gradient-to-r from-primary to-purple-400 bg-clip-text"
+          >Veltrix</span
+        >
+      </div>
+    </div>
+
+    <div class="overflow-hidden shadow-xl card bg-base-200">
+      <div class="p-0 card-body">
+        <div class="grid grid-cols-1 md:grid-cols-2">
+          <!-- Left side: Illustration -->
+          <div
+            class="flex items-center justify-center p-8 bg-gradient-to-br from-primary/10 to-purple-400/10"
+          >
+            <div class="relative w-64 h-64">
+              <!-- Animated stars background -->
+              <div class="absolute inset-0 stars-bg"></div>
+
+              <!-- Astronaut illustration -->
+              <div class="astronaut-container">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 200 200"
+                  class="w-full h-full"
+                >
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r="50"
+                    fill="#8B5CF6"
+                    opacity="0.2"
+                    class="pulse-circle"
+                  />
+                  <path
+                    d="M100,70 C85,70 75,85 75,100 C75,115 85,130 100,130 C115,130 125,115 125,100 C125,85 115,70 100,70 Z"
+                    fill="#8B5CF6"
+                  />
+                  <circle cx="100" cy="85" r="20" fill="#F8FAFC" />
+                  <circle cx="95" cy="82" r="3" fill="#1E293B" />
+                  <circle cx="105" cy="82" r="3" fill="#1E293B" />
+                  <path
+                    d="M95,90 C95,93 105,93 105,90"
+                    fill="none"
+                    stroke="#1E293B"
+                    stroke-width="2"
+                  />
+                </svg>
+                <div
+                  class="absolute top-0 left-0 w-full h-full floating-animation"
+                ></div>
+              </div>
+
+              <!-- 404 text -->
+              <div class="absolute bottom-0 w-full text-center">
+                <span class="text-6xl font-bold text-primary">404</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right side: Content -->
+          <div class="p-8">
+            <h1 class="mb-4 text-3xl font-bold">Page Not Found</h1>
+            <p class="mb-6 text-base-content/70">
+              Oops! It seems like you've ventured into uncharted territory. The
+              page you're looking for doesn't exist or has been moved to another
+              dimension.
+            </p>
+
+            <!-- Search box -->
+            <div class="mb-6 form-control">
+              <div class="input-group">
+                <input
+                  type="text"
+                  placeholder="Search Veltrix..."
+                  class="w-full input"
+                  [(ngModel)]="searchQuery"
+                  (keyup.enter)="search()"
+                />
+                <button class="btn btn-primary" (click)="search()">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex flex-col gap-4 sm:flex-row">
+              <button class="flex-1 btn btn-primary" (click)="goToHome()">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 12l2-2m0 0l7-7 7 7m-14 0l2 2m0 0l7 7 7-7m-14 0l2-2"
+                  />
+                </svg>
+                Return Home
+              </button>
+              <a
+                routerLink="/contact"
+                class="flex-1 btn btn-outline btn-primary"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
+                  />
+                </svg>
+                Contact Support
+              </a>
+            </div>
+
+            <!-- Quick links -->
+            <div class="mt-8">
+              <h3 class="mb-2 text-sm font-semibold text-base-content/70">
+                You might be looking for:
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <a
+                  routerLink="/dashboard"
+                  class="p-3 badge badge-primary badge-outline"
+                  >Dashboard</a
+                >
+                <a
+                  routerLink="/study-area"
+                  class="p-3 badge badge-primary badge-outline"
+                  >Study Area</a
+                >
+                <a
+                  routerLink="/my-notes"
+                  class="p-3 badge badge-primary badge-outline"
+                  >My Notes</a
+                >
+                <a
+                  routerLink="/community"
+                  class="p-3 badge badge-primary badge-outline"
+                  >Community</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-8 text-sm text-center text-base-content/50">
+      <p>© 2025 Veltrix. All rights reserved.</p>
+    </div>
+  </div>
+</div>

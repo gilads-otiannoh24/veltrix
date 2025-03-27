@@ -1,0 +1,320 @@
+<div class="min-h-screen bg-base-100">
+  <!-- Hero Section -->
+  <section
+    class="relative px-4 py-16 text-center bg-gradient-to-br from-primary/80 to-primary/30 sm:px-6 lg:px-8 text-base-100"
+  >
+    <div class="mx-auto max-w-5xl">
+      <h1 class="mb-4 text-4xl font-bold md:text-5xl">Get in Touch</h1>
+      <p class="mx-auto max-w-3xl text-xl opacity-90 md:text-2xl">
+        We'd love to hear from you. Reach out with questions, feedback, or
+        support requests.
+      </p>
+    </div>
+
+    <!-- Wave Divider -->
+    <div class="overflow-hidden absolute right-0 bottom-0 left-0">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1200 120"
+        preserveAspectRatio="none"
+        class="w-full h-12 fill-base-100"
+      >
+        <path
+          d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+        ></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
+        <!-- Contact Form -->
+        <div>
+          <div class="shadow-xl card bg-base-200">
+            <div class="card-body">
+              <h2 class="mb-6 text-2xl font-bold card-title text-primary">
+                Send Us a Message
+              </h2>
+
+              <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                <!-- Alert Messages -->
+                <div *ngIf="successMessage" class="mb-6 alert alert-success">
+                  <i class="fas fa-check-circle"></i>
+                  <span>{{ successMessage }}</span>
+                </div>
+
+                <div *ngIf="errorMessage" class="mb-6 alert alert-error">
+                  <i class="fas fa-exclamation-circle"></i>
+                  <span>{{ errorMessage }}</span>
+                </div>
+
+                <!-- Name Field -->
+                <div class="mb-4 form-control">
+                  <label class="label">
+                    <span class="label-text">Your Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    formControlName="name"
+                    class="w-full input input-bordered"
+                    [ngClass]="{
+                      'input-error':
+                        contactForm.get('name')?.invalid &&
+                        contactForm.get('name')?.touched
+                    }"
+                  />
+                  <label
+                    *ngIf="
+                      contactForm.get('name')?.invalid &&
+                      contactForm.get('name')?.touched
+                    "
+                    class="label"
+                  >
+                    <span class="label-text-alt text-error"
+                      >Name is required</span
+                    >
+                  </label>
+                </div>
+
+                <!-- Email Field -->
+                <div class="mb-4 form-control">
+                  <label class="label">
+                    <span class="label-text">Email Address</span>
+                  </label>
+                  <input
+                    type="email"
+                    formControlName="email"
+                    class="w-full input input-bordered"
+                    [ngClass]="{
+                      'input-error':
+                        contactForm.get('email')?.invalid &&
+                        contactForm.get('email')?.touched
+                    }"
+                  />
+                  <label
+                    *ngIf="
+                      contactForm.get('email')?.invalid &&
+                      contactForm.get('email')?.touched
+                    "
+                    class="label"
+                  >
+                    <span class="label-text-alt text-error"
+                      >Please enter a valid email address</span
+                    >
+                  </label>
+                </div>
+
+                <!-- Subject Field -->
+                <div class="mb-4 form-control">
+                  <label class="label">
+                    <span class="label-text">Subject</span>
+                  </label>
+                  <select class="w-full select select-bordered">
+                    <option disabled selected>Select a subject</option>
+                    <option>General Inquiry</option>
+                    <option>Technical Support</option>
+                    <option>Billing Question</option>
+                    <option>Feature Request</option>
+                    <option>Partnership Opportunity</option>
+                  </select>
+                </div>
+
+                <!-- Message Field -->
+                <div class="mb-6 form-control">
+                  <label class="label">
+                    <span class="label-text">Your Message</span>
+                  </label>
+                  <textarea
+                    formControlName="message"
+                    class="h-32 textarea textarea-bordered"
+                    [ngClass]="{
+                      'textarea-error':
+                        contactForm.get('message')?.invalid &&
+                        contactForm.get('message')?.touched
+                    }"
+                  ></textarea>
+                  <label
+                    *ngIf="
+                      contactForm.get('message')?.invalid &&
+                      contactForm.get('message')?.touched
+                    "
+                    class="label"
+                  >
+                    <span class="label-text-alt text-error"
+                      >Please enter your message</span
+                    >
+                  </label>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="mt-6 form-control">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    [disabled]="contactForm.invalid"
+                  >
+                    <i class="mr-2 fas fa-paper-plane"></i> Send Message
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div>
+          <h2 class="mb-6 text-2xl font-bold text-primary">
+            Contact Information
+          </h2>
+
+          <div class="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2">
+            <div
+              class="shadow-lg transition-all card bg-base-200 hover:shadow-xl"
+            >
+              <div class="card-body">
+                <div class="flex gap-4 items-center">
+                  <div class="p-3 rounded-full bg-primary/20">
+                    <i class="text-xl fas fa-envelope text-primary"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-semibold">Email Us</h3>
+                    <a
+                      href="mailto:support@veltrix.com"
+                      class="text-primary hover:underline"
+                      >support&#64;veltrix.com</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="shadow-lg transition-all card bg-base-200 hover:shadow-xl"
+            >
+              <div class="card-body">
+                <div class="flex gap-4 items-center">
+                  <div class="p-3 rounded-full bg-primary/20">
+                    <i class="text-xl fas fa-phone-alt text-primary"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-semibold">Call Us</h3>
+                    <p>+1 (800) 123-4567</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="shadow-lg transition-all card bg-base-200 hover:shadow-xl"
+            >
+              <div class="card-body">
+                <div class="flex gap-4 items-center">
+                  <div class="p-3 rounded-full bg-primary/20">
+                    <i class="text-xl fas fa-map-marker-alt text-primary"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-semibold">Headquarters</h3>
+                    <p>123 Innovation Way<br />San Francisco, CA 94107</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="shadow-lg transition-all card bg-base-200 hover:shadow-xl"
+            >
+              <div class="card-body">
+                <div class="flex gap-4 items-center">
+                  <div class="p-3 rounded-full bg-primary/20">
+                    <i class="text-xl fas fa-clock text-primary"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-semibold">Support Hours</h3>
+                    <p>Monday - Friday<br />9:00 AM - 6:00 PM PST</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Map -->
+          <div class="mb-8 shadow-xl card bg-base-200">
+            <div class="overflow-hidden p-0 h-64 card-body rounded-box">
+              <!-- Placeholder for map -->
+              <div
+                class="flex justify-center items-center w-full h-full bg-base-300"
+              >
+                <div class="text-center">
+                  <i
+                    class="mb-2 text-4xl fas fa-map-marked-alt text-primary"
+                  ></i>
+                  <p>Interactive Map Would Appear Here</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Media -->
+          <h3 class="mb-4 text-xl font-bold text-primary">Connect With Us</h3>
+
+          <div class="flex gap-4 mb-8">
+            <a href="#" class="btn btn-circle btn-outline">
+              <i class="text-lg fab fa-twitter"></i>
+            </a>
+            <a href="#" class="btn btn-circle btn-outline">
+              <i class="text-lg fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="btn btn-circle btn-outline">
+              <i class="text-lg fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" class="btn btn-circle btn-outline">
+              <i class="text-lg fab fa-instagram"></i>
+            </a>
+            <a href="#" class="btn btn-circle btn-outline">
+              <i class="text-lg fab fa-youtube"></i>
+            </a>
+          </div>
+
+          <!-- FAQ Teaser -->
+          <div class="shadow-lg card bg-primary/10">
+            <div class="card-body">
+              <h3 class="card-title text-primary">
+                Frequently Asked Questions
+              </h3>
+              <p class="mb-4">
+                Find quick answers to common questions about Veltrix.
+              </p>
+              <div class="card-actions">
+                <a href="#" class="btn btn-primary btn-sm">View FAQs</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="px-4 py-16 sm:px-6 lg:px-8 bg-base-200">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="mb-4 text-2xl font-bold text-primary">Stay Updated</h2>
+      <p class="mx-auto mb-8 max-w-3xl text-lg">
+        Subscribe to our newsletter for the latest updates, educational
+        resources, and Veltrix news.
+      </p>
+
+      <div
+        class="flex flex-col gap-4 justify-center mx-auto max-w-md sm:flex-row"
+      >
+        <input
+          type="email"
+          placeholder="Your email address"
+          class="flex-grow input input-bordered"
+        />
+        <button class="btn btn-primary">Subscribe</button>
+      </div>
+    </div>
+  </section>
+</div>

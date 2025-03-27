@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url("../node_modules/@fortawesome/fontawesome-free/css/all.min.css");
+
+@import "tailwindcss";
+@theme {
+  --color-primary-dark: #7c3aed;
+  --color-primary-light: #a78bfa;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+  }
+
+  .glassmorphism {
+    background: var(--card);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(139, 92, 246, 0.5);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 92, 246, 0.8);
+  }
+}
+
+@plugin "daisyui" {
+  themes: light --default, dark = --prefersDark;
+}
+
+@plugin "daisyui/theme" {
+  name: "light";
+  --color-primary: #8b5cf6;
+  --color-secondary: #c4b5fd;
+  --color-background: #f3f4f6;
+  --color-base-100: rgba(255, 255, 255, 0.8);
+}
+
+@plugin "daisyui/theme" {
+  name: "dark";
+  --color-primary: #8b5cf6;
+  --color-secondary: #c4b5fd;
+  --color-background: #111827;
+  --color-base-100: rgba(31, 41, 55, 0.8);
+}
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));

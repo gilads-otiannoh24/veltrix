@@ -1,0 +1,162 @@
+<div class="flex items-center justify-center min-h-screen px-4 bg-base-100">
+  <div class="w-full max-w-4xl">
+    <!-- Veltrix Logo -->
+    <div class="flex justify-center mb-8">
+      <div class="flex items-center">
+        <app-logo class="mr-4"></app-logo>
+        <span
+          class="text-3xl font-bold text-transparent bg-gradient-to-r from-primary to-purple-400 bg-clip-text"
+          >Veltrix</span
+        >
+      </div>
+    </div>
+
+    <div class="overflow-hidden shadow-xl card bg-base-200">
+      <div class="p-0 card-body">
+        <div class="grid grid-cols-1 md:grid-cols-2">
+          <!-- Left side: Illustration -->
+          <div
+            class="flex items-center justify-center p-8 bg-gradient-to-br from-primary/10 to-purple-400/10"
+          >
+            <div class="relative w-64 h-64">
+              <!-- Locked door illustration -->
+              <div class="door-container">
+                <div class="door">
+                  <div class="door-face">
+                    <div class="door-handle"></div>
+                  </div>
+                </div>
+                <div class="lock">
+                  <div class="lock-body"></div>
+                  <div class="lock-shackle"></div>
+                </div>
+                <div class="lock-rays">
+                  <div class="ray ray1"></div>
+                  <div class="ray ray2"></div>
+                  <div class="ray ray3"></div>
+                </div>
+              </div>
+
+              <!-- 403 text -->
+              <div class="absolute bottom-0 w-full text-center">
+                <span class="text-6xl font-bold text-primary">403</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right side: Content -->
+          <div class="p-8">
+            <h1 class="mb-4 text-3xl font-bold">Access Denied</h1>
+            <p class="mb-6 text-base-content/70">
+              Sorry, you don't have permission to access this page. This area
+              might be restricted to certain user roles or require special
+              authorization.
+            </p>
+
+            <!-- Alert -->
+            <div class="mb-6 alert alert-warning">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6 shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                />
+              </svg>
+              <div>
+                <span
+                  >You need additional permissions to view this content.</span
+                >
+              </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex flex-col gap-4 sm:flex-row">
+              <button class="flex-1 btn btn-primary" (click)="goToLogin()">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                  />
+                </svg>
+                Login
+              </button>
+              <button
+                class="flex-1 btn btn-outline btn-primary"
+                (click)="requestAccess()"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
+                  />
+                </svg>
+                Request Access
+              </button>
+            </div>
+
+            <div class="my-6 divider">OR</div>
+
+            <button class="w-full btn btn-ghost" (click)="goToHome()">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7m-14 0l2 2m0 0l7 7 7-7m-14 0l2-2"
+                />
+              </svg>
+              Return to a safe place
+            </button>
+
+            <!-- Help section -->
+            <div class="mt-8 text-sm text-base-content/70">
+              <p>
+                If you believe you should have access to this page, please
+                contact your administrator or the support team.
+              </p>
+              <a
+                href="mailto:support@veltrix.com"
+                class="inline-block mt-2 link link-primary"
+                >support&#64;veltrix.com</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-8 text-sm text-center text-base-content/50">
+      <p>© 2025 Veltrix. All rights reserved.</p>
+    </div>
+  </div>
+</div>

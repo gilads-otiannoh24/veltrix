@@ -1,0 +1,253 @@
+<!-- Welcome Card -->
+<div class="mb-6 card bg-primary text-primary-content">
+  <div class="flex flex-row flex-wrap justify-between items-center card-body">
+    <div>
+      <h2 class="text-2xl card-title">Welcome back, {{ userName }}!</h2>
+      <p>
+        You have 3 study sessions scheduled for today. Your current study streak
+        is {{ studyStreak }} days!
+      </p>
+    </div>
+    <button class="bg-white btn btn-ghost text-primary">
+      <i class="mr-2 fas fa-book"></i>
+      Start Studying
+    </button>
+  </div>
+</div>
+
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 gap-6 mb-6 md:grid-cols-2 lg:grid-cols-4">
+  <div
+    class="shadow-xl card glassmorphism bg-base-100"
+    *ngFor="
+      let stat of [
+        weekStats.studyTime,
+        weekStats.tasksCompleted,
+        weekStats.notesCreated,
+        weekStats.quizScore
+      ]
+    "
+  >
+    <div class="card-body">
+      <div class="flex justify-between items-center">
+        <h3 class="text-3xl font-bold">{{ stat.value }}</h3>
+        <div class="text-sm text-success">
+          <i class="mr-1 fas fa-arrow-up"></i>
+          {{ stat.change }}%
+        </div>
+      </div>
+      <p class="text-base-content/60">{{ stat.label }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+  <!-- Left Column -->
+  <div class="space-y-6 lg:col-span-2">
+    <!-- Study Progress -->
+    <div class="shadow-xl card glassmorphism bg-base-100">
+      <div class="card-body">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="card-title">Study Progress</h3>
+          <div class="tabs tabs-boxed">
+            <a class="tab tab-active">This Week</a>
+            <a class="tab">This Month</a>
+            <a class="tab">All Time</a>
+          </div>
+        </div>
+        <!-- Placeholder for chart -->
+        <div
+          class="flex justify-center items-center h-64 bg-base-200 rounded-box"
+        >
+          Study hours by day chart visualization
+        </div>
+      </div>
+    </div>
+
+    <!-- Today's Schedule -->
+    <div class="shadow-xl card glassmorphism bg-base-100">
+      <div class="card-body">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="card-title">Today's Schedule</h3>
+          <button class="btn btn-primary btn-sm" (click)="addSession()">
+            <i class="mr-2 fas fa-plus"></i>
+            Add Session
+          </button>
+        </div>
+
+        <div class="space-y-4">
+          <div class="card bg-base-200" *ngFor="let session of todaysSessions">
+            <div class="p-4 card-body">
+              <div class="flex justify-between items-start">
+                <div>
+                  <div class="text-sm text-base-content/60">
+                    {{ session.time }} - {{ session.endTime }}
+                  </div>
+                  <h4 class="font-semibold">{{ session.title }}</h4>
+                  <p class="text-sm text-base-content/60">
+                    {{ session.subtitle }}
+                  </p>
+                </div>
+                <div
+                  class="badge"
+                  [ngClass]="{
+                    'badge-primary': session.status === 'in-progress',
+                    'badge-warning': session.status === 'upcoming'
+                  }"
+                >
+                  {{ session.status }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="justify-center mt-4 card-actions">
+          <button class="btn btn-ghost btn-sm">View Full Schedule</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Notes -->
+    <div class="shadow-xl card glassmorphism bg-base-100">
+      <div class="card-body">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="card-title">Recent Notes</h3>
+          <button class="btn btn-primary btn-sm" (click)="addNewNote()">
+            <i class="mr-2 fas fa-plus"></i>
+            New Note
+          </button>
+        </div>
+
+        <div class="space-y-4">
+          <div class="card bg-base-200" *ngFor="let note of recentNotes">
+            <div class="p-4 card-body">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 class="font-semibold">{{ note.title }}</h4>
+                  <p class="text-sm text-base-content/60">
+                    {{ note.description }}
+                  </p>
+                </div>
+                <span class="text-sm text-base-content/60">{{
+                  note.timeAgo
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="justify-center mt-4 card-actions">
+          <button class="btn btn-ghost btn-sm">View All Notes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Column -->
+  <div class="space-y-6">
+    <!-- Calendar Card -->
+    <div class="shadow-xl card glassmorphism bg-base-100">
+      <div class="card-body">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="card-title">{{ currentMonth }}</h3>
+          <div class="flex gap-2">
+            <button class="btn btn-ghost btn-sm">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="btn btn-ghost btn-sm">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Calendar grid would go here -->
+        <div class="grid grid-cols-7 gap-2 text-center">
+          <div
+            class="text-sm font-medium"
+            *ngFor="let day of ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']"
+          >
+            {{ day }}
+          </div>
+          <!-- Calendar days would be populated here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Tasks Card -->
+    <div class="shadow-xl card glassmorphism bg-base-100">
+      <div class="card-body">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="card-title">Tasks</h3>
+          <button class="btn btn-primary btn-sm" (click)="addNewTask()">
+            <i class="mr-2 fas fa-plus"></i>
+            Add Task
+          </button>
+        </div>
+
+        <div class="space-y-2">
+          <div class="form-control" *ngFor="let task of tasks; let i = index">
+            <label class="gap-2 justify-start cursor-pointer label">
+              <input
+                type="checkbox"
+                [checked]="task.completed"
+                (change)="toggleTaskStatus(i)"
+                class="checkbox checkbox-primary"
+              />
+              <span
+                class="label-text"
+                [ngClass]="{ 'line-through': task.completed }"
+              >
+                {{ task.text }}
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="justify-center mt-4 card-actions">
+          <button class="btn btn-ghost btn-sm">View All Tasks</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Study Goals -->
+    <div class="shadow-xl card glassmorphism bg-base-100">
+      <div class="card-body">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="card-title">Study Goals</h3>
+          <button class="btn btn-primary btn-sm">
+            <i class="mr-2 fas fa-plus"></i>
+            Add New Goal
+          </button>
+        </div>
+
+        <div class="space-y-4">
+          <div *ngFor="let goal of studyGoals">
+            <div class="flex justify-between mb-1">
+              <span>{{ goal.course }}</span>
+              <span>{{ goal.target }}</span>
+            </div>
+            <progress
+              class="w-full progress progress-primary"
+              [value]="goal.progress"
+              max="100"
+            ></progress>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Study Streak -->
+    <div class="shadow-xl card glassmorphism bg-base-100">
+      <div class="items-center text-center card-body">
+        <h3 class="card-title">Study Streak</h3>
+        <div class="radial-progress text-primary" [style.--value]="100">
+          {{ studyStreak }}
+        </div>
+        <p>days</p>
+        <p class="text-sm text-base-content/60">
+          You're on a {{ studyStreak }}-day study streak! Keep it up!
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

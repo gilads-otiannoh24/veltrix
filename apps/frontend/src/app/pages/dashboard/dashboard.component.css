@@ -1,0 +1,5 @@
+/* Additional custom styles if needed */
+.radial-progress {
+  --size: 8rem;
+  --thickness: 1rem;
+}

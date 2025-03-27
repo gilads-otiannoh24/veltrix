@@ -1,0 +1,63 @@
+<div class="min-h-screen bg-base-100">
+  <div class="">
+    <app-sidebar [activePage]="title()"></app-sidebar>
+
+    <!-- Main Content -->
+    <div
+      [ngClass]="
+        sidebarService.sidebarOpen && !sidebarService.partiallyOpen
+          ? 'lg:left-64 lg:w-[calc(100%-256px)] w-full left-0'
+          : sidebarService.sidebarOpen && sidebarService.partiallyOpen
+          ? 'lg:left-24 lg:w-[calc(100%-96px)] w-full left-0'
+          : 'left-0 w-full'
+      "
+      class="flex relative z-0 flex-col"
+    >
+      <!-- Top Navigation -->
+      <div class="flex p-4 rounded-lg shadow-md glassmorphism bg-base-100">
+        <div class="flex flex-1 gap-2 items-center">
+          <button
+            (click)="sidebarService.toggleSidebar()"
+            class="btn btn-ghost"
+          >
+            <ng-icon size="20" name="heroBars3" />
+          </button>
+          <h1 class="text-2xl font-semibold">{{ title() }}</h1>
+        </div>
+        <div class="flex gap-2">
+          <div class="hidden form-control">
+            <input
+              type="text"
+              placeholder="Search..."
+              class="w-24 input input-bordered md:w-auto"
+            />
+          </div>
+          <button
+            (click)="themeService.toggleDarkMode()"
+            class="btn btn-ghost btn-circle"
+          >
+            <ng-icon
+              *ngIf="!themeService.getDarkMode()"
+              size="24"
+              name="heroMoon"
+            />
+            <ng-icon
+              *ngIf="themeService.getDarkMode()"
+              size="24"
+              name="heroSun"
+            />
+          </button>
+          <button class="btn btn-ghost btn-circle">
+            <div class="indicator">
+              <ng-icon size="20" name="heroBell" />
+              <span class="badge badge-xs badge-primary indicator-item"></span>
+            </div>
+          </button>
+        </div>
+      </div>
+      <div class="flex flex-col p-6">
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

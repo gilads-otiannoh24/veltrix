@@ -1,0 +1,218 @@
+<!-- Sidebar -->
+<div
+  (click)="sidebarService.closeSidebar()"
+  class="fixed inset-0 z-50 backdrop-blur-md"
+  [ngClass]="sidebarService.sidebarOpen ? 'block lg:hidden' : 'hidden'"
+></div>
+<div
+  [ngClass]="{
+    block:
+      (sidebarService.sidebarOpen && sidebarService.isMobile) ||
+      (sidebarService.sidebarOpen && !sidebarService.isMobile),
+    hidden:
+      (!sidebarService.sidebarOpen && !sidebarService.isMobile) ||
+      (!sidebarService.sidebarOpen && sidebarService.isMobile),
+    'w-24': sidebarService.partiallyOpen,
+    'w-64': !sidebarService.partiallyOpen
+  }"
+  class="shadow-md z-[51] fixed inset-y-0 left-0 bg-base-100 rounded-tr-lg glassmorphism rounded-br-lg h-[100vh]"
+>
+  <ul
+    [ngClass]="!sidebarService.partiallyOpen ? 'pl-4' : 'px-2 items-center'"
+    class="z-10 w-full h-full gap-2 py-4 shadow-md menu sidebar bg-base-100 text-base-content"
+  >
+    <li class="mb-4">
+      <div
+        [ngClass]="
+          !sidebarService.partiallyOpen ? '' : 'flex-col-reverse justify-center'
+        "
+        class="flex items-center justify-between"
+      >
+        <div class="flex items-center justify-center">
+          <a
+            [ngClass]="
+              !sidebarService.partiallyOpen
+                ? 'p-3'
+                : 'p-1 tooltip tooltip-right'
+            "
+            class="flex items-center gap-2 text-xl font-bold text-primary"
+            data-tooltip="Veltrix Home"
+          >
+            <app-logo></app-logo>
+            <span *ngIf="!sidebarService.partiallyOpen">Veltrix</span>
+          </a>
+        </div>
+        <button
+          *ngIf="!sidebarService.isMobile"
+          (click)="sidebarService.partiallyToggleSidebar()"
+          class="btn btn-ghost btn-sm btn-circle"
+        >
+          <ng-icon
+            *ngIf="sidebarService.partiallyOpen"
+            size="20"
+            name="heroChevronRight"
+          ></ng-icon>
+          <ng-icon
+            *ngIf="!sidebarService.partiallyOpen"
+            size="20"
+            name="heroChevronLeft"
+          ></ng-icon>
+        </button>
+      </div>
+    </li>
+
+    <div class="flex flex-col flex-1 gap-2 overflow-x-hidden overflow-y-auto">
+      <li [ngClass]="activePage() === 'Dashboard' ? 'active' : ''">
+        <a
+          routerLink="/dashboard"
+          [ngClass]="
+            !sidebarService.partiallyOpen
+              ? 'p-3'
+              : 'p-2 justify-center tooltip tooltip-right'
+          "
+          class="flex hover:bg-primary-light/20"
+          data-tooltip="Dashboard"
+        >
+          <ng-icon
+            color="var(--color-primary)"
+            name="heroChartPie"
+            size="24"
+          ></ng-icon>
+          <span *ngIf="!sidebarService.partiallyOpen">Dashboard</span>
+        </a>
+      </li>
+      <li [ngClass]="activePage() === 'Study Area' ? 'active' : ''">
+        <a
+          routerLink="/study-area"
+          [ngClass]="
+            !sidebarService.partiallyOpen ? 'p-3' : 'p-2 justify-center'
+          "
+          class="flex gap-3 hover:bg-primary-light/20"
+        >
+          <ng-icon
+            color="var(--color-primary)"
+            name="heroBookOpen"
+            size="24"
+          ></ng-icon>
+          <span *ngIf="!sidebarService.partiallyOpen">Study Area</span>
+        </a>
+      </li>
+      <li [ngClass]="activePage() === 'My Notes' ? 'active' : ''">
+        <a
+          routerLink="/my-notes"
+          [ngClass]="
+            !sidebarService.partiallyOpen ? 'p-3' : 'p-2 justify-center'
+          "
+          class="flex gap-3 hover:bg-primary-light/20"
+        >
+          <ng-icon
+            color="var(--color-primary)"
+            name="heroNewspaper"
+            size="24"
+          ></ng-icon>
+          <span *ngIf="!sidebarService.partiallyOpen">My Notes</span>
+        </a>
+      </li>
+      <li [ngClass]="activePage() === 'Study Plan' ? 'active' : ''">
+        <a
+          routerLink="/study-plan"
+          [ngClass]="
+            !sidebarService.partiallyOpen ? 'p-3' : 'p-2 justify-center'
+          "
+          class="flex gap-3 hover:bg-primary-light/20"
+        >
+          <ng-icon
+            color="var(--color-primary)"
+            name="heroCalendar"
+            size="24"
+          ></ng-icon>
+          <span *ngIf="!sidebarService.partiallyOpen">Study Plan</span>
+        </a>
+      </li>
+      <li [ngClass]="activePage() === 'Progress' ? 'active' : ''">
+        <a
+          routerLink="/progress"
+          [ngClass]="
+            !sidebarService.partiallyOpen ? 'p-3' : 'p-2 justify-center'
+          "
+          class="flex gap-3 hover:bg-primary-light/20"
+        >
+          <ng-icon
+            color="var(--color-primary)"
+            name="heroArrowTrendingUp"
+            size="24"
+          ></ng-icon>
+          <span *ngIf="!sidebarService.partiallyOpen">Progress</span>
+        </a>
+      </li>
+      <li [ngClass]="activePage() === 'Community' ? 'active' : ''">
+        <a
+          [ngClass]="
+            !sidebarService.partiallyOpen ? 'p-3' : 'p-2 justify-center'
+          "
+          routerLink="/community"
+          class="flex gap-3 hover:bg-primary-light/20"
+        >
+          <ng-icon
+            color="var(--color-primary)"
+            name="heroUsers"
+            size="24"
+          ></ng-icon>
+          <span *ngIf="!sidebarService.partiallyOpen">Community</span>
+        </a>
+      </li>
+    </div>
+
+    <div class="mt-auto">
+      <div
+        class="flex items-center gap-3 p-4 mb-4 rounded hover:bg-primary-light/20"
+      >
+        <div class="avatar">
+          <div
+            [ngClass]="!sidebarService.partiallyOpen ? 'size-12' : 'size-10'"
+            class="rounded-full"
+          >
+            <img src="https://i.pravatar.cc/100" alt="Alex Johnson" />
+          </div>
+        </div>
+        <div *ngIf="!sidebarService.partiallyOpen">
+          <h3 class="font-semibold">{{ authService.getUser()?.username }}</h3>
+          <a
+            routerLink="/profile"
+            class="text-sm cursor-pointer text-primary hover:underline"
+            >View Profile</a
+          >
+        </div>
+      </div>
+      <li [ngClass]="activePage() === 'Settings' ? 'active' : ''">
+        <a
+          routerLink="/settings"
+          [ngClass]="
+            !sidebarService.partiallyOpen ? 'p-3' : 'p-2 justify-center'
+          "
+          class="flex gap-3 hover:bg-primary-light/20"
+        >
+          <ng-icon
+            color="var(--color-primary)"
+            name="heroCog6Tooth"
+            size="24"
+          ></ng-icon>
+          <span *ngIf="!sidebarService.partiallyOpen">Settings</span>
+        </a>
+      </li>
+
+      <li>
+        <a
+          [ngClass]="
+            !sidebarService.partiallyOpen ? 'p-3' : 'p-2 justify-center'
+          "
+          class="flex gap-3 text-error hover:bg-red-400/20"
+          (click)="logout()"
+        >
+          <ng-icon name="heroArrowLeftStartOnRectangle" size="24"></ng-icon>
+          <span *ngIf="!sidebarService.partiallyOpen">Logout</span>
+        </a>
+      </li>
+    </div>
+  </ul>
+</div>

@@ -1,0 +1,1415 @@
+<!-- Content Area -->
+<div class="flex-1 overflow-auto p-6">
+  <!-- Progress Overview -->
+  <div class="glassmorphism p-6 mb-6">
+    <div
+      class="flex flex-col md:flex-row items-start md:items-center justify-between mb-6"
+    >
+      <div>
+        <h3 class="text-xl font-semibold mb-2">Progress Overview</h3>
+        <p class="text-sm text-gray-500">Spring Semester 2025</p>
+      </div>
+      <div class="mt-4 md:mt-0 flex space-x-3">
+        <button
+          class="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+        >
+          <i class="fas fa-download mr-2"></i> Export Report
+        </button>
+        <button
+          class="inline-flex items-center px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+        >
+          <i class="fas fa-share-alt mr-2"></i> Share
+        </button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div class="flex flex-col items-center justify-center">
+        <div class="progress-circle mb-3">
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle class="bg" cx="60" cy="60" r="54" />
+            <circle
+              class="progress"
+              cx="60"
+              cy="60"
+              r="54"
+              stroke-dasharray="339.292"
+              stroke-dashoffset="84.823"
+            />
+          </svg>
+          <div class="text">
+            <span class="text-2xl font-bold">75%</span>
+            <span class="text-xs block">Overall</span>
+          </div>
+        </div>
+        <h4 class="text-sm font-medium">Overall Progress</h4>
+        <p class="text-xs text-gray-500 mt-1">Across all subjects</p>
+      </div>
+
+      <div class="flex flex-col items-center justify-center">
+        <div class="progress-circle mb-3">
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle class="bg" cx="60" cy="60" r="54" />
+            <circle
+              class="progress"
+              cx="60"
+              cy="60"
+              r="54"
+              stroke-dasharray="339.292"
+              stroke-dashoffset="101.788"
+            />
+          </svg>
+          <div class="text">
+            <span class="text-2xl font-bold">70%</span>
+            <span class="text-xs block">Completion</span>
+          </div>
+        </div>
+        <h4 class="text-sm font-medium">Course Completion</h4>
+        <p class="text-xs text-gray-500 mt-1">4 courses in progress</p>
+      </div>
+
+      <div class="flex flex-col items-center justify-center">
+        <div class="progress-circle mb-3">
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle class="bg" cx="60" cy="60" r="54" />
+            <circle
+              class="progress"
+              cx="60"
+              cy="60"
+              r="54"
+              stroke-dasharray="339.292"
+              stroke-dashoffset="67.858"
+            />
+          </svg>
+          <div class="text">
+            <span class="text-2xl font-bold">80%</span>
+            <span class="text-xs block">Average</span>
+          </div>
+        </div>
+        <h4 class="text-sm font-medium">Grade Average</h4>
+        <p class="text-xs text-gray-500 mt-1">B+ average grade</p>
+      </div>
+
+      <div class="flex flex-col items-center justify-center">
+        <div class="progress-circle mb-3">
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle class="bg" cx="60" cy="60" r="54" />
+            <circle
+              class="progress"
+              cx="60"
+              cy="60"
+              r="54"
+              stroke-dasharray="339.292"
+              stroke-dashoffset="50.894"
+            />
+          </svg>
+          <div class="text">
+            <span class="text-2xl font-bold">85%</span>
+            <span class="text-xs block">Goals</span>
+          </div>
+        </div>
+        <h4 class="text-sm font-medium">Goals Achieved</h4>
+        <p class="text-xs text-gray-500 mt-1">17/20 goals completed</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="mb-6 border-b border-gray-200 dark:border-gray-700">
+    <div class="flex overflow-x-auto">
+      <button
+        click="activeTab = 'subjects'"
+        class="tab-button"
+        :class="{ 'active': activeTab === 'subjects' }"
+      >
+        Subject Progress
+      </button>
+      <button
+        click="activeTab = 'time'"
+        class="tab-button"
+        :class="{ 'active': activeTab === 'time' }"
+      >
+        Study Time
+      </button>
+      <button
+        click="activeTab = 'performance'"
+        class="tab-button"
+        :class="{ 'active': activeTab === 'performance' }"
+      >
+        Performance Analytics
+      </button>
+      <button
+        click="activeTab = 'achievements'"
+        class="tab-button"
+        :class="{ 'active': activeTab === 'achievements' }"
+      >
+        Achievements
+      </button>
+    </div>
+  </div>
+
+  <!-- Tab Content -->
+  <div>
+    <!-- Subject Progress Tab -->
+    <div x-show="activeTab === 'subjects'" class="space-y-6">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-semibold">Subject Progress</h3>
+        <div class="flex items-center space-x-2">
+          <select
+            class="text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 py-1.5 px-3"
+          >
+            <option>All Subjects</option>
+            <option>Physics</option>
+            <option>Mathematics</option>
+            <option>Computer Science</option>
+            <option>Literature</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Subject Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Physics -->
+        <div class="glassmorphism p-5 rounded-lg">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <h4 class="text-lg font-semibold flex items-center">
+                <i class="fas fa-atom text-red-500 mr-2"></i> Physics
+              </h4>
+              <p class="text-sm text-gray-500 mt-1">Advanced Physics</p>
+            </div>
+            <div class="progress-circle-sm">
+              <svg width="60" height="60" viewBox="0 0 60 60">
+                <circle class="bg" cx="30" cy="30" r="27" />
+                <circle
+                  class="progress"
+                  cx="30"
+                  cy="30"
+                  r="27"
+                  stroke-dasharray="169.646"
+                  stroke-dashoffset="25.447"
+                />
+              </svg>
+              <div class="text">85%</div>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between mb-1 text-xs">
+                <span>Quantum Mechanics</span>
+                <span>90%</span>
+              </div>
+              <div
+                class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5"
+              >
+                <div
+                  class="bg-purple-600 h-1.5 rounded-full"
+                  style="width: 90%"
+                ></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1 text-xs">
+                <span>Relativity</span>
+                <span>85%</span>
+              </div>
+              <div
+                class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5"
+              >
+                <div
+                  class="bg-purple-600 h-1.5 rounded-full"
+                  style="width: 85%"
+                ></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1 text-xs">
+                <span>Thermodynamics</span>
+                <span>80%</span>
+              </div>
+              <div
+                class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5"
+              >
+                <div
+                  class="bg-purple-600 h-1.5 rounded-full"
+                  style="width: 80%"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 flex justify-between items-center text-sm">
+            <span class="badge badge-success">A Grade</span>
+            <a href="#" class="text-purple-600 hover:underline">View Details</a>
+          </div>
+        </div>
+
+        <!-- Mathematics -->
+        <div class="glassmorphism p-5 rounded-lg">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <h4 class="text-lg font-semibold flex items-center">
+                <i class="fas fa-calculator text-green-500 mr-2"></i>
+                Mathematics
+              </h4>
+              <p class="text-sm text-gray-500 mt-1">Advanced Calculus</p>
+            </div>
+            <div class="progress-circle-sm">
+              <svg width="60" height="60" viewBox="0 0 60 60">
+                <circle class="bg" cx="30" cy="30" r="27" />
+                <circle
+                  class="progress"
+                  cx="30"
+                  cy="30"
+                  r="27"
+                  stroke-dasharray="169.646"
+                  stroke-dashoffset="50.894"
+                />
+              </svg>
+              <div class="text">70%</div>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between mb-1 text-xs">
+                <span>Integration</span>
+                <span>75%</span>
+              </div>
+              <div
+                class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5"
+              >
+                <div
+                  class="bg-purple-600 h-1.5 rounded-full"
+                  style="width: 75%"
+                ></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1 text-xs">
+                <span>Differential Equations</span>
+                <span>65%</span>
+              </div>
+              <div
+                class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5"
+              >
+                <div
+                  class="bg-purple-600 h-1.5 rounded-full"
+                  style="width: 65%"
+                ></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1 text-xs">
+                <span>Linear Algebra</span>
+                <span>70%</span>
+              </div>
+              <div
+                class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5"
+              >
+                <div
+                  class="bg-purple-600 h-1.5 rounded-full"
+                  style="width: 70%"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 flex justify-between items-center text-sm">
+            <span class="badge badge-primary">B Grade</span>
+            <a href="#" class="text-purple-600 hover:underline">View Details</a>
+          </div>
+        </div>
+
+        <!-- Computer Science -->
+        <div class="glassmorphism p-5 rounded-lg">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <h4 class="text-lg font-semibold flex items-center">
+                <i class="fas fa-laptop-code text-blue-500 mr-2"></i> Computer
+                Science
+              </h4>
+              <p class="text-sm text-gray-500 mt-1">Data Structures</p>
+            </div>
+            <div class="progress-circle-sm">
+              <svg width="60" height="60" viewBox="0 0 60 60">
+                <circle class="bg" cx="30" cy="30" r="27" />
+                <circle
+                  class="progress"
+                  cx="30"
+                  cy="30"
+                  r="27"
+                  stroke-dasharray="169.646"
+                  stroke-dashoffset="16.965"
+                />
+              </svg>
+              <div class="text">90%</div>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between mb-1 text-xs">
+                <span>Binary Trees</span>
+                <span>95%</span>
+              </div>
+              <div
+                class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5"
+              >
+                <div
+                  class="bg-purple-600 h-1.5 rounded-full"
+                  style="width: 95%"
+                ></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1 text-xs">
+                <span>Algorithms</span>
+                <span>90%</span>
+              </div>
+              <div
+                class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5"
+              >
+                <div
+                  class="bg-purple-600 h-1.5 rounded-full"
+                  style="width: 90%"
+                ></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1 text-xs">
+                <span>Object-Oriented Programming</span>
+                <span>85%</span>
+              </div>
+              <div
+                class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5"
+              >
+                <div
+                  class="bg-purple-600 h-1.5 rounded-full"
+                  style="width: 85%"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 flex justify-between items-center text-sm">
+            <span class="badge badge-success">A+ Grade</span>
+            <a href="#" class="text-purple-600 hover:underline">View Details</a>
+          </div>
+        </div>
+
+        <!-- Literature -->
+        <div class="glassmorphism p-5 rounded-lg">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <h4 class="text-lg font-semibold flex items-center">
+                <i class="fas fa-book text-yellow-500 mr-2"></i> Literature
+              </h4>
+              <p class="text-sm text-gray-500 mt-1">Modern Literature</p>
+            </div>
+            <div class="progress-circle-sm">
+              <svg width="60" height="60" viewBox="0 0 60 60">
+                <circle class="bg" cx="30" cy="30" r="27" />
+                <circle
+                  class="progress"
+                  cx="30"
+                  cy="30"
+                  r="27"
+                  stroke-dasharray="169.646"
+                  stroke-dashoffset="59.376"
+                />
+              </svg>
+              <div class="text">65%</div>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between mb-1 text-xs">
+                <span>Post-Modern Analysis</span>
+                <span>70%</span>
+              </div>
+              <div
+                class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5"
+              >
+                <div
+                  class="bg-purple-600 h-1.5 rounded-full"
+                  style="width: 70%"
+                ></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1 text-xs">
+                <span>Critical Theory</span>
+                <span>60%</span>
+              </div>
+              <div
+                class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5"
+              >
+                <div
+                  class="bg-purple-600 h-1.5 rounded-full"
+                  style="width: 60%"
+                ></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1 text-xs">
+                <span>Essay Writing</span>
+                <span>65%</span>
+              </div>
+              <div
+                class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5"
+              >
+                <div
+                  class="bg-purple-600 h-1.5 rounded-full"
+                  style="width: 65%"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 flex justify-between items-center text-sm">
+            <span class="badge badge-warning">B- Grade</span>
+            <a href="#" class="text-purple-600 hover:underline">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subject Comparison Chart -->
+      <div class="glassmorphism p-6 rounded-lg">
+        <h4 class="text-md font-semibold mb-4">Subject Comparison</h4>
+        <div class="chart-container">
+          <canvas id="subjectComparisonChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Skill Radar Chart -->
+      <div class="glassmorphism p-6 rounded-lg">
+        <h4 class="text-md font-semibold mb-4">Skill Assessment</h4>
+        <div class="chart-container">
+          <canvas id="skillRadarChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Study Time Tab -->
+    <div x-show="activeTab === 'time'" class="space-y-6">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-semibold">Study Time Analytics</h3>
+        <div class="flex items-center space-x-2">
+          <button class="text-sm text-purple-600 hover:underline">Daily</button>
+          <button
+            class="text-sm text-gray-500 hover:text-purple-600 hover:underline"
+          >
+            Weekly
+          </button>
+          <button
+            class="text-sm text-gray-500 hover:text-purple-600 hover:underline"
+          >
+            Monthly
+          </button>
+        </div>
+      </div>
+
+      <!-- Study Time Chart -->
+      <div class="glassmorphism p-6 rounded-lg">
+        <h4 class="text-md font-semibold mb-4">Study Hours Distribution</h4>
+        <div class="chart-container">
+          <canvas id="studyTimeChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Study Heatmap -->
+      <div class="glassmorphism p-6 rounded-lg">
+        <div class="flex justify-between items-center mb-4">
+          <h4 class="text-md font-semibold">Study Activity Heatmap</h4>
+          <div class="flex items-center space-x-2">
+            <span class="text-xs text-gray-500">Less</span>
+            <div class="flex space-x-1">
+              <div class="w-3 h-3 heatmap-level-0"></div>
+              <div class="w-3 h-3 heatmap-level-1"></div>
+              <div class="w-3 h-3 heatmap-level-2"></div>
+              <div class="w-3 h-3 heatmap-level-3"></div>
+              <div class="w-3 h-3 heatmap-level-4"></div>
+            </div>
+            <span class="text-xs text-gray-500">More</span>
+          </div>
+        </div>
+
+        <div class="mb-2 flex justify-between text-xs text-gray-500">
+          <span>Sun</span>
+          <span>Mon</span>
+          <span>Tue</span>
+          <span>Wed</span>
+          <span>Thu</span>
+          <span>Fri</span>
+          <span>Sat</span>
+        </div>
+
+        <div class="heatmap" id="studyHeatmap">
+          <!-- Heatmap cells will be generated by JavaScript -->
+        </div>
+
+        <div class="mt-4 text-center text-sm">
+          <p>
+            Total study time: <span class="font-medium">124 hours</span> in the
+            last 12 weeks
+          </p>
+          <p class="text-xs text-gray-500 mt-1">
+            Your most productive day is
+            <span class="font-medium text-purple-600">Wednesday</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Study Sessions -->
+      <div class="glassmorphism p-6 rounded-lg">
+        <div class="flex justify-between items-center mb-4">
+          <h4 class="text-md font-semibold">Recent Study Sessions</h4>
+          <button class="text-sm text-purple-600 hover:underline">
+            View All
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table
+            class="min-w-full divide-y divide-gray-200 dark:divide-gray-700"
+          >
+            <thead class="bg-gray-50 dark:bg-gray-800">
+              <tr>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Date
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Subject
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Duration
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Focus Score
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Productivity
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700"
+            >
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                  May 10, 2025
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">Physics</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">2h 15m</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                  <div class="flex items-center">
+                    <div
+                      class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 w-24"
+                    >
+                      <div
+                        class="bg-green-500 h-1.5 rounded-full"
+                        style="width: 90%"
+                      ></div>
+                    </div>
+                    <span class="ml-2">90%</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">
+                  High
+                </td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">May 9, 2025</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">Mathematics</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">1h 45m</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                  <div class="flex items-center">
+                    <div
+                      class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 w-24"
+                    >
+                      <div
+                        class="bg-yellow-500 h-1.5 rounded-full"
+                        style="width: 75%"
+                      ></div>
+                    </div>
+                    <span class="ml-2">75%</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-500">
+                  Medium
+                </td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">May 8, 2025</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                  Computer Science
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">3h 00m</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                  <div class="flex items-center">
+                    <div
+                      class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 w-24"
+                    >
+                      <div
+                        class="bg-green-500 h-1.5 rounded-full"
+                        style="width: 95%"
+                      ></div>
+                    </div>
+                    <span class="ml-2">95%</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">
+                  High
+                </td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">May 7, 2025</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">Literature</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">1h 30m</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                  <div class="flex items-center">
+                    <div
+                      class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 w-24"
+                    >
+                      <div
+                        class="bg-red-500 h-1.5 rounded-full"
+                        style="width: 60%"
+                      ></div>
+                    </div>
+                    <span class="ml-2">60%</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">
+                  Low
+                </td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">May 6, 2025</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">Physics</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">2h 30m</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                  <div class="flex items-center">
+                    <div
+                      class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 w-24"
+                    >
+                      <div
+                        class="bg-green-500 h-1.5 rounded-full"
+                        style="width: 85%"
+                      ></div>
+                    </div>
+                    <span class="ml-2">85%</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">
+                  High
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Productivity Analysis -->
+      <div class="glassmorphism p-6 rounded-lg">
+        <h4 class="text-md font-semibold mb-4">Productivity Analysis</h4>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h5 class="text-sm font-medium mb-3">
+              Most Productive Time of Day
+            </h5>
+            <div class="chart-container h-64">
+              <canvas id="productivityTimeChart"></canvas>
+            </div>
+          </div>
+
+          <div>
+            <h5 class="text-sm font-medium mb-3">
+              Study Environment Effectiveness
+            </h5>
+            <div class="chart-container h-64">
+              <canvas id="environmentChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-purple-50 dark:bg-gray-800 rounded-lg">
+          <h5 class="text-sm font-medium mb-2">Productivity Insights</h5>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-start">
+              <i class="fas fa-lightbulb text-yellow-500 mt-0.5 mr-2"></i>
+              <span
+                >Your most productive study sessions are in the
+                <span class="font-medium">morning (8-10 AM)</span>.</span
+              >
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-lightbulb text-yellow-500 mt-0.5 mr-2"></i>
+              <span
+                >You achieve better focus when studying in the
+                <span class="font-medium">library</span> compared to other
+                locations.</span
+              >
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-lightbulb text-yellow-500 mt-0.5 mr-2"></i>
+              <span
+                >Your focus tends to drop after
+                <span class="font-medium">90 minutes</span> of continuous study.
+                Consider taking short breaks.</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Performance Analytics Tab -->
+    <div x-show="activeTab === 'performance'" class="space-y-6">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-semibold">Performance Analytics</h3>
+        <div class="flex items-center space-x-2">
+          <button
+            class="inline-flex items-center px-3 py-1.5 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+          >
+            <i class="fas fa-download mr-2"></i> Export Data
+          </button>
+        </div>
+      </div>
+
+      <!-- Grade Trends -->
+      <div class="glassmorphism p-6 rounded-lg">
+        <h4 class="text-md font-semibold mb-4">Grade Trends</h4>
+        <div class="chart-container">
+          <canvas id="gradeTrendsChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Performance Metrics -->
+      <div class="glassmorphism p-6 rounded-lg">
+        <h4 class="text-md font-semibold mb-4">Performance Metrics</h4>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div
+            class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div class="flex items-center justify-between mb-3">
+              <h5 class="text-sm font-medium">Assignment Completion</h5>
+              <span class="text-lg font-bold text-purple-600">92%</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+              <div
+                class="bg-purple-600 h-2 rounded-full"
+                style="width: 92%"
+              ></div>
+            </div>
+            <p class="text-xs text-gray-500 mt-2">
+              23/25 assignments completed on time
+            </p>
+          </div>
+
+          <div
+            class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div class="flex items-center justify-between mb-3">
+              <h5 class="text-sm font-medium">Quiz Performance</h5>
+              <span class="text-lg font-bold text-purple-600">85%</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+              <div
+                class="bg-purple-600 h-2 rounded-full"
+                style="width: 85%"
+              ></div>
+            </div>
+            <p class="text-xs text-gray-500 mt-2">
+              Average score across 15 quizzes
+            </p>
+          </div>
+
+          <div
+            class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div class="flex items-center justify-between mb-3">
+              <h5 class="text-sm font-medium">Exam Results</h5>
+              <span class="text-lg font-bold text-purple-600">B+</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+              <div
+                class="bg-purple-600 h-2 rounded-full"
+                style="width: 80%"
+              ></div>
+            </div>
+            <p class="text-xs text-gray-500 mt-2">
+              Average grade across all exams
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <h5 class="text-sm font-medium mb-3">
+            Performance by Assessment Type
+          </h5>
+          <div class="chart-container h-64">
+            <canvas id="assessmentTypeChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Strengths and Weaknesses -->
+      <div class="glassmorphism p-6 rounded-lg">
+        <h4 class="text-md font-semibold mb-4">
+          Strengths & Areas for Improvement
+        </h4>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h5 class="text-sm font-medium mb-3 text-green-500">Strengths</h5>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 h-5 w-5 rounded-full bg-green-100 flex items-center justify-center mr-2"
+                >
+                  <i class="fas fa-check text-green-500 text-xs"></i>
+                </div>
+                <div>
+                  <p class="text-sm font-medium">Problem Solving</p>
+                  <p class="text-xs text-gray-500">
+                    Excellent at solving complex problems in Physics and
+                    Computer Science
+                  </p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 h-5 w-5 rounded-full bg-green-100 flex items-center justify-center mr-2"
+                >
+                  <i class="fas fa-check text-green-500 text-xs"></i>
+                </div>
+                <div>
+                  <p class="text-sm font-medium">Coding Skills</p>
+                  <p class="text-xs text-gray-500">
+                    Strong programming abilities, particularly in algorithm
+                    implementation
+                  </p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 h-5 w-5 rounded-full bg-green-100 flex items-center justify-center mr-2"
+                >
+                  <i class="fas fa-check text-green-500 text-xs"></i>
+                </div>
+                <div>
+                  <p class="text-sm font-medium">Conceptual Understanding</p>
+                  <p class="text-xs text-gray-500">
+                    Deep understanding of theoretical concepts in Physics
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h5 class="text-sm font-medium mb-3 text-yellow-500">
+              Areas for Improvement
+            </h5>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 h-5 w-5 rounded-full bg-yellow-100 flex items-center justify-center mr-2"
+                >
+                  <i class="fas fa-exclamation text-yellow-500 text-xs"></i>
+                </div>
+                <div>
+                  <p class="text-sm font-medium">Essay Writing</p>
+                  <p class="text-xs text-gray-500">
+                    Need to improve structure and critical analysis in
+                    Literature essays
+                  </p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 h-5 w-5 rounded-full bg-yellow-100 flex items-center justify-center mr-2"
+                >
+                  <i class="fas fa-exclamation text-yellow-500 text-xs"></i>
+                </div>
+                <div>
+                  <p class="text-sm font-medium">Differential Equations</p>
+                  <p class="text-xs text-gray-500">
+                    Struggling with complex differential equations in Calculus
+                  </p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 h-5 w-5 rounded-full bg-yellow-100 flex items-center justify-center mr-2"
+                >
+                  <i class="fas fa-exclamation text-yellow-500 text-xs"></i>
+                </div>
+                <div>
+                  <p class="text-sm font-medium">Time Management</p>
+                  <p class="text-xs text-gray-500">
+                    Need to improve allocation of study time across all subjects
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-purple-50 dark:bg-gray-800 rounded-lg">
+          <h5 class="text-sm font-medium mb-2">Personalized Recommendations</h5>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-start">
+              <i class="fas fa-lightbulb text-purple-600 mt-0.5 mr-2"></i>
+              <span
+                >Consider joining the
+                <span class="font-medium">Literature Study Group</span> to
+                improve essay writing skills.</span
+              >
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-lightbulb text-purple-600 mt-0.5 mr-2"></i>
+              <span
+                >Review the
+                <span class="font-medium">Differential Equations</span> tutorial
+                videos in the Mathematics resource section.</span
+              >
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-lightbulb text-purple-600 mt-0.5 mr-2"></i>
+              <span
+                >Try using the
+                <span class="font-medium">Pomodoro Technique</span> to improve
+                focus during Literature study sessions.</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Comparative Analysis -->
+      <div class="glassmorphism p-6 rounded-lg">
+        <h4 class="text-md font-semibold mb-4">Comparative Analysis</h4>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h5 class="text-sm font-medium mb-3">
+              Current vs. Previous Semester
+            </h5>
+            <div class="chart-container h-64">
+              <canvas id="semesterComparisonChart"></canvas>
+            </div>
+          </div>
+
+          <div>
+            <h5 class="text-sm font-medium mb-3">
+              Performance Relative to Goals
+            </h5>
+            <div class="chart-container h-64">
+              <canvas id="goalsComparisonChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 text-sm">
+          <p class="font-medium">Key Observations:</p>
+          <ul class="mt-2 space-y-1 text-gray-600 dark:text-gray-300">
+            <li>
+              • Your overall GPA has improved by 0.3 points compared to last
+              semester
+            </li>
+            <li>
+              • Computer Science performance has shown the most significant
+              improvement (15%)
+            </li>
+            <li>• Literature performance has slightly decreased (-5%)</li>
+            <li>
+              • You've exceeded your goals in Physics and Computer Science
+            </li>
+            <li>
+              • Mathematics and Literature performance are below your target
+              goals
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievements Tab -->
+    <div x-show="activeTab === 'achievements'" class="space-y-6">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-semibold">Achievements & Milestones</h3>
+        <div class="flex items-center space-x-2">
+          <span class="text-sm text-gray-500"
+            >Total Achievements:
+            <span class="font-medium text-purple-600">18/30</span></span
+          >
+        </div>
+      </div>
+
+      <!-- Achievement Categories -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="glassmorphism p-5 rounded-lg text-center">
+          <div class="progress-circle-sm mx-auto mb-3">
+            <svg width="60" height="60" viewBox="0 0 60 60">
+              <circle class="bg" cx="30" cy="30" r="27" />
+              <circle
+                class="progress"
+                cx="30"
+                cy="30"
+                r="27"
+                stroke-dasharray="169.646"
+                stroke-dashoffset="67.858"
+              />
+            </svg>
+            <div class="text">60%</div>
+          </div>
+          <h4 class="text-sm font-medium">Academic Excellence</h4>
+          <p class="text-xs text-gray-500 mt-1">6/10 achievements</p>
+        </div>
+
+        <div class="glassmorphism p-5 rounded-lg text-center">
+          <div class="progress-circle-sm mx-auto mb-3">
+            <svg width="60" height="60" viewBox="0 0 60 60">
+              <circle class="bg" cx="30" cy="30" r="27" />
+              <circle
+                class="progress"
+                cx="30"
+                cy="30"
+                r="27"
+                stroke-dasharray="169.646"
+                stroke-dashoffset="50.894"
+              />
+            </svg>
+            <div class="text">70%</div>
+          </div>
+          <h4 class="text-sm font-medium">Study Habits</h4>
+          <p class="text-xs text-gray-500 mt-1">7/10 achievements</p>
+        </div>
+
+        <div class="glassmorphism p-5 rounded-lg text-center">
+          <div class="progress-circle-sm mx-auto mb-3">
+            <svg width="60" height="60" viewBox="0 0 60 60">
+              <circle class="bg" cx="30" cy="30" r="27" />
+              <circle
+                class="progress"
+                cx="30"
+                cy="30"
+                r="27"
+                stroke-dasharray="169.646"
+                stroke-dashoffset="118.752"
+              />
+            </svg>
+            <div class="text">30%</div>
+          </div>
+          <h4 class="text-sm font-medium">Subject Mastery</h4>
+          <p class="text-xs text-gray-500 mt-1">3/10 achievements</p>
+        </div>
+
+        <div class="glassmorphism p-5 rounded-lg text-center">
+          <div class="progress-circle-sm mx-auto mb-3">
+            <svg width="60" height="60" viewBox="0 0 60 60">
+              <circle class="bg" cx="30" cy="30" r="27" />
+              <circle
+                class="progress"
+                cx="30"
+                cy="30"
+                r="27"
+                stroke-dasharray="169.646"
+                stroke-dashoffset="84.823"
+              />
+            </svg>
+            <div class="text">50%</div>
+          </div>
+          <h4 class="text-sm font-medium">Consistency</h4>
+          <p class="text-xs text-gray-500 mt-1">5/10 achievements</p>
+        </div>
+      </div>
+
+      <!-- Recent Achievements -->
+      <div class="glassmorphism p-6 rounded-lg">
+        <h4 class="text-md font-semibold mb-4">Recent Achievements</h4>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot">
+              <i class="fas fa-trophy text-xs"></i>
+            </div>
+            <div class="glassmorphism p-4 rounded-lg">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h5 class="text-sm font-medium">Perfect Score</h5>
+                  <p class="text-xs text-gray-500 mt-1">
+                    Achieved 100% on the Computer Science midterm exam
+                  </p>
+                </div>
+                <span class="badge badge-success">May 5, 2025</span>
+              </div>
+              <div class="mt-2 flex items-center">
+                <i class="fas fa-medal text-yellow-500 mr-2"></i>
+                <span class="text-xs text-purple-600">+50 XP</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot">
+              <i class="fas fa-award text-xs"></i>
+            </div>
+            <div class="glassmorphism p-4 rounded-lg">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h5 class="text-sm font-medium">Study Streak</h5>
+                  <p class="text-xs text-gray-500 mt-1">
+                    Maintained a 30-day study streak
+                  </p>
+                </div>
+                <span class="badge badge-success">April 28, 2025</span>
+              </div>
+              <div class="mt-2 flex items-center">
+                <i class="fas fa-medal text-yellow-500 mr-2"></i>
+                <span class="text-xs text-purple-600">+30 XP</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot">
+              <i class="fas fa-star text-xs"></i>
+            </div>
+            <div class="glassmorphism p-4 rounded-lg">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h5 class="text-sm font-medium">Note-Taking Master</h5>
+                  <p class="text-xs text-gray-500 mt-1">
+                    Created 50 comprehensive study notes
+                  </p>
+                </div>
+                <span class="badge badge-success">April 15, 2025</span>
+              </div>
+              <div class="mt-2 flex items-center">
+                <i class="fas fa-medal text-yellow-500 mr-2"></i>
+                <span class="text-xs text-purple-600">+25 XP</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Achievement Gallery -->
+      <div class="glassmorphism p-6 rounded-lg">
+        <h4 class="text-md font-semibold mb-4">Achievement Gallery</h4>
+
+        <div
+          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
+        >
+          <!-- Unlocked Achievements -->
+          <div class="text-center">
+            <div class="achievement-badge mb-2">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h5 class="text-sm font-medium">Dean's List</h5>
+            <p class="text-xs text-gray-500">Achieved GPA above 3.5</p>
+          </div>
+
+          <div class="text-center">
+            <div class="achievement-badge mb-2">
+              <i class="fas fa-clock"></i>
+            </div>
+            <h5 class="text-sm font-medium">Time Master</h5>
+            <p class="text-xs text-gray-500">100+ hours of study time</p>
+          </div>
+
+          <div class="text-center">
+            <div class="achievement-badge mb-2">
+              <i class="fas fa-fire"></i>
+            </div>
+            <h5 class="text-sm font-medium">30-Day Streak</h5>
+            <p class="text-xs text-gray-500">Studied for 30 days in a row</p>
+          </div>
+
+          <div class="text-center">
+            <div class="achievement-badge mb-2">
+              <i class="fas fa-atom"></i>
+            </div>
+            <h5 class="text-sm font-medium">Physics Whiz</h5>
+            <p class="text-xs text-gray-500">Aced the Physics final exam</p>
+          </div>
+
+          <div class="text-center">
+            <div class="achievement-badge mb-2">
+              <i class="fas fa-laptop-code"></i>
+            </div>
+            <h5 class="text-sm font-medium">Code Master</h5>
+            <p class="text-xs text-gray-500">
+              Perfect score on coding assignment
+            </p>
+          </div>
+
+          <!-- Locked Achievements -->
+          <div class="text-center opacity-70">
+            <div class="achievement-badge locked mb-2">
+              <i class="fas fa-calculator"></i>
+            </div>
+            <h5 class="text-sm font-medium">Math Genius</h5>
+            <p class="text-xs text-gray-500">Score 95%+ in Calculus</p>
+          </div>
+
+          <div class="text-center opacity-70">
+            <div class="achievement-badge locked mb-2">
+              <i class="fas fa-book"></i>
+            </div>
+            <h5 class="text-sm font-medium">Literature Expert</h5>
+            <p class="text-xs text-gray-500">A+ on Literature essay</p>
+          </div>
+
+          <div class="text-center opacity-70">
+            <div class="achievement-badge locked mb-2">
+              <i class="fas fa-trophy"></i>
+            </div>
+            <h5 class="text-sm font-medium">Perfect Semester</h5>
+            <p class="text-xs text-gray-500">4.0 GPA for one semester</p>
+          </div>
+        </div>
+
+        <div class="mt-6 text-center">
+          <button class="text-sm text-purple-600 hover:underline">
+            View All Achievements
+          </button>
+        </div>
+      </div>
+
+      <!-- Milestone Timeline -->
+      <div class="glassmorphism p-6 rounded-lg">
+        <h4 class="text-md font-semibold mb-4">Academic Milestones</h4>
+
+        <div class="relative">
+          <div
+            class="absolute left-0 top-0 bottom-0 w-0.5 bg-purple-200 dark:bg-purple-900/30"
+          ></div>
+
+          <div class="space-y-8 relative">
+            <div class="relative pl-8">
+              <div
+                class="absolute left-0 top-0 w-4 h-4 rounded-full bg-purple-600 border-4 border-white dark:border-gray-900"
+              ></div>
+              <div
+                class="flex flex-col md:flex-row md:items-center justify-between"
+              >
+                <div>
+                  <h5 class="text-sm font-medium">Started Spring Semester</h5>
+                  <p class="text-xs text-gray-500">
+                    Enrolled in 4 courses: Physics, Mathematics, Computer
+                    Science, and Literature
+                  </p>
+                </div>
+                <span class="text-xs text-gray-500 mt-1 md:mt-0"
+                  >January 15, 2025</span
+                >
+              </div>
+            </div>
+
+            <div class="relative pl-8">
+              <div
+                class="absolute left-0 top-0 w-4 h-4 rounded-full bg-purple-600 border-4 border-white dark:border-gray-900"
+              ></div>
+              <div
+                class="flex flex-col md:flex-row md:items-center justify-between"
+              >
+                <div>
+                  <h5 class="text-sm font-medium">Midterm Exams Completed</h5>
+                  <p class="text-xs text-gray-500">
+                    Achieved an average grade of B+ across all subjects
+                  </p>
+                </div>
+                <span class="text-xs text-gray-500 mt-1 md:mt-0"
+                  >March 10, 2025</span
+                >
+              </div>
+            </div>
+
+            <div class="relative pl-8">
+              <div
+                class="absolute left-0 top-0 w-4 h-4 rounded-full bg-purple-600 border-4 border-white dark:border-gray-900"
+              ></div>
+              <div
+                class="flex flex-col md:flex-row md:items-center justify-between"
+              >
+                <div>
+                  <h5 class="text-sm font-medium">
+                    Research Project Completed
+                  </h5>
+                  <p class="text-xs text-gray-500">
+                    Submitted the Quantum Mechanics research project with
+                    excellent feedback
+                  </p>
+                </div>
+                <span class="text-xs text-gray-500 mt-1 md:mt-0"
+                  >April 20, 2025</span
+                >
+              </div>
+            </div>
+
+            <div class="relative pl-8">
+              <div
+                class="absolute left-0 top-0 w-4 h-4 rounded-full bg-gray-300 dark:bg-gray-700 border-4 border-white dark:border-gray-900"
+              ></div>
+              <div
+                class="flex flex-col md:flex-row md:items-center justify-between opacity-70"
+              >
+                <div>
+                  <h5 class="text-sm font-medium">Final Exams</h5>
+                  <p class="text-xs text-gray-500">
+                    Complete all final exams for the semester
+                  </p>
+                </div>
+                <span class="text-xs text-gray-500 mt-1 md:mt-0"
+                  >May 25-30, 2025</span
+                >
+              </div>
+            </div>
+
+            <div class="relative pl-8">
+              <div
+                class="absolute left-0 top-0 w-4 h-4 rounded-full bg-gray-300 dark:bg-gray-700 border-4 border-white dark:border-gray-900"
+              ></div>
+              <div
+                class="flex flex-col md:flex-row md:items-center justify-between opacity-70"
+              >
+                <div>
+                  <h5 class="text-sm font-medium">Semester Completion</h5>
+                  <p class="text-xs text-gray-500">
+                    Successfully complete the Spring semester with target GPA
+                  </p>
+                </div>
+                <span class="text-xs text-gray-500 mt-1 md:mt-0"
+                  >June 5, 2025</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

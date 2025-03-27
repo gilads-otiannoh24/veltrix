@@ -1,0 +1,46 @@
+/* Zen Mode Styles */
+.zen-mode .sidebar,
+.zen-mode .chat-panel,
+.zen-mode .top-bar,
+.zen-mode .study-tools {
+  display: none !important;
+}
+
+.zen-mode .editor-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.zen-mode .ql-toolbar.ql-snow {
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+
+.zen-mode .ql-toolbar.ql-snow:hover {
+  opacity: 1;
+}
+
+/* Chat Message Styles */
+.chat-message {
+  max-width: 85%;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  border-radius: 18px;
+}
+
+.user-message {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-light),
+    var(--color-primary)
+  );
+  color: white;
+  border-bottom-right-radius: 5px;
+  margin-left: auto;
+}
+
+.ai-message {
+  background: rgba(156, 163, 175, 0.2);
+  border-bottom-left-radius: 5px;
+}

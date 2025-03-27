@@ -1,0 +1,168 @@
+/* Focus Mode Styles */
+.focus-mode .editor-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: hsl(var(--b1));
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.focus-mode-padding {
+  padding: 2rem 3rem !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.7);
+}
+
+/* Editor Content Styling */
+.editor-content {
+  min-height: 300px;
+  outline: none;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  height: 100%;
+}
+
+.editor-content:focus {
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+.read-only {
+  cursor: not-allowed;
+  opacity: 0.9;
+  background-color: hsl(var(--b2) / 0.3);
+  border-radius: 0.25rem;
+}
+
+/* Line clamp for note previews */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth transitions */
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+/* Prose customization */
+.prose {
+  max-width: none;
+}
+
+.prose h1,
+.prose h2,
+.prose h3 {
+  color: hsl(var(--p));
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+}
+
+.prose h1 {
+  font-size: 1.875rem;
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+}
+
+.prose h3 {
+  font-size: 1.25rem;
+}
+
+.prose p {
+  margin-bottom: 1em;
+}
+
+.prose ul,
+.prose ol {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+}
+
+.prose blockquote {
+  border-left: 4px solid hsl(var(--p));
+  padding-left: 1em;
+  font-style: italic;
+  color: hsl(var(--bc) / 0.8);
+}
+
+.prose code {
+  background: hsl(var(--b2));
+  padding: 0.2em 0.4em;
+  border-radius: 0.25em;
+  font-size: 0.875em;
+}
+
+.prose pre {
+  background: hsl(var(--b2));
+  padding: 1em;
+  border-radius: 0.5em;
+  overflow-x: auto;
+}
+
+/* Animation for AI chat */
+.chat-bubble {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Preview/Edit split view */
+.preview-content {
+  padding: 0.5rem;
+}
+
+/* Tooltip styling */
+.tooltip:before {
+  background-color: hsl(var(--p));
+  color: hsl(var(--pc));
+  font-size: 0.7rem;
+}
+
+/* Settings panel toggle styling */
+.toggle:checked {
+  background-color: hsl(var(--p));
+}
+
+/* Dropdown styling */
+.dropdown-content {
+  border: 1px solid hsl(var(--b3));
+}
+
+.btn-group {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-right: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}

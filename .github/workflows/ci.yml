@@ -1,0 +1,24 @@
+name: Deploy Monorepo
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Set Up PHP & Install Dependencies
+        run: |
+          cd apps/backend
+          composer install --no-dev --optimize-autoloader
+
+      - name: Set Up Node & Install Dependencies
+        run: |
+          cd apps/frontend
+          npm install
+          npm run build
+
+      - name: Deploy to Server
+        run: echo "Deploying..."

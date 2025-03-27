@@ -1,0 +1,494 @@
+<!-- Main Content -->
+<div class="flex flex-col overflow-hidden bg-base-100">
+  <!-- Top Navigation -->
+  <header class="bg-base-200 border-b border-base-300 py-2 px-4">
+    <div class="flex items-center justify-between">
+      <!-- Left: Back & Document Title -->
+      <div class="flex items-center">
+        <button class="btn btn-ghost btn-sm" routerLink="/dashboard">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+
+        <div class="ml-4 flex items-center">
+          <input
+            type="text"
+            [(ngModel)]="currentNote.title"
+            [disabled]="isReadOnly"
+            class="input input-ghost text-lg font-medium p-0 h-auto focus:outline-none bg-transparent w-64"
+            placeholder="Untitled Document"
+          />
+          <span class="ml-4 badge badge-primary">{{
+            formatEditingTime()
+          }}</span>
+        </div>
+      </div>
+
+      <!-- Right: Actions -->
+      <div class="flex items-center gap-2">
+        <div class="dropdown dropdown-end">
+          <label tabindex="0" class="btn btn-ghost btn-sm">
+            <i class="fas fa-ellipsis-v"></i>
+          </label>
+          <ul
+            tabindex="0"
+            class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52"
+          >
+            <li>
+              <a (click)="createNewNote()"
+                ><i class="fas fa-file-alt mr-2"></i> New Note</a
+              >
+            </li>
+            <li>
+              <a><i class="fas fa-folder-open mr-2"></i> Open</a>
+            </li>
+            <li>
+              <a><i class="fas fa-download mr-2"></i> Export</a>
+            </li>
+            <li>
+              <a><i class="fas fa-share-alt mr-2"></i> Share</a>
+            </li>
+            <li>
+              <a><i class="fas fa-trash-alt mr-2"></i> Delete</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="btn-group">
+          <button
+            class="btn btn-sm"
+            [ngClass]="{
+              'btn-primary': editorView === 'edit',
+              'btn-ghost': editorView !== 'edit'
+            }"
+            (click)="changeEditorView('edit')"
+          >
+            <i class="fas fa-edit mr-1"></i> EDIT
+          </button>
+          <button
+            class="btn btn-sm"
+            [ngClass]="{
+              'btn-primary': editorView === 'preview',
+              'btn-ghost': editorView !== 'preview'
+            }"
+            (click)="changeEditorView('preview')"
+          >
+            <i class="fas fa-eye mr-1"></i> PREVIEW
+          </button>
+        </div>
+
+        <button
+          class="btn btn-ghost btn-sm"
+          (click)="toggleFocusMode()"
+          [attr.data-tip]="isFocusMode ? 'Exit Focus Mode' : 'Enter Focus Mode'"
+          class="tooltip tooltip-bottom"
+        >
+          <i
+            class="fas"
+            [ngClass]="{
+              'fa-compress-alt': !isFocusMode,
+              'fa-expand-alt': isFocusMode
+            }"
+          ></i>
+        </button>
+
+        <button class="btn btn-ghost btn-sm" (click)="toggleSettingsPanel()">
+          <i class="fas fa-cog"></i>
+        </button>
+
+        <button
+          class="btn btn-primary btn-sm"
+          (click)="saveNote()"
+          [disabled]="isReadOnly"
+        >
+          <i class="fas fa-save mr-1"></i> SAVE
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Editor Area -->
+  <div
+    class="flex-1 flex overflow-hidden"
+    [ngClass]="{ 'focus-mode': isFocusMode }"
+  >
+    <!-- Main Editor -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- Editor Toolbar -->
+      <div
+        class="bg-base-200 border-b border-base-300 p-1 flex flex-wrap items-center gap-1"
+        [ngClass]="{ hidden: isFocusMode || editorView === 'preview' }"
+      >
+        <!-- Text Formatting -->
+        <div class="btn-group">
+          <button
+            class="btn btn-sm btn-ghost"
+            (click)="applyFormatting('bold')"
+            data-tip="Bold"
+            class="tooltip tooltip-bottom"
+          >
+            <i class="fas fa-bold"></i>
+          </button>
+          <button
+            class="btn btn-sm btn-ghost"
+            (click)="applyFormatting('code')"
+            data-tip="Code"
+            class="tooltip tooltip-bottom"
+          >
+            <i class="fas fa-code"></i>
+          </button>
+          <button
+            class="btn btn-sm btn-ghost"
+            (click)="applyFormatting('underline')"
+            data-tip="Underline"
+            class="tooltip tooltip-bottom"
+          >
+            <i class="fas fa-underline"></i>
+          </button>
+          <button
+            class="btn btn-sm btn-ghost"
+            (click)="applyFormatting('undo')"
+            data-tip="Undo"
+            class="tooltip tooltip-bottom"
+          >
+            <i class="fas fa-undo"></i>
+          </button>
+        </div>
+
+        <div class="dropdown">
+          <label
+            tabindex="0"
+            class="btn btn-sm btn-ghost m-1 flex items-center gap-1"
+          >
+            {{ activeHeadingLevel | titlecase }}
+            <i class="fas fa-chevron-down text-xs"></i>
+          </label>
+          <ul
+            tabindex="0"
+            class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52"
+          >
+            <li><a (click)="setHeadingLevel('paragraph')">Paragraph</a></li>
+            <li><a (click)="setHeadingLevel('heading 1')">Heading 1</a></li>
+            <li><a (click)="setHeadingLevel('heading 2')">Heading 2</a></li>
+            <li><a (click)="setHeadingLevel('heading 3')">Heading 3</a></li>
+            <li><a (click)="setHeadingLevel('quote')">Quote</a></li>
+            <li><a (click)="setHeadingLevel('code block')">Code Block</a></li>
+          </ul>
+        </div>
+
+        <button
+          class="btn btn-sm btn-ghost"
+          (click)="applyFormatting('clipboard')"
+          data-tip="Copy to Clipboard"
+          class="tooltip tooltip-bottom"
+        >
+          <i class="fas fa-clipboard"></i>
+        </button>
+
+        <!-- Lists -->
+        <div class="btn-group mx-1">
+          <button
+            class="btn btn-sm btn-ghost"
+            (click)="applyFormatting('align-left')"
+            data-tip="Align Left"
+            class="tooltip tooltip-bottom"
+          >
+            <i class="fas fa-align-left"></i>
+          </button>
+          <button
+            class="btn btn-sm btn-ghost"
+            (click)="applyFormatting('align-center')"
+            data-tip="Align Center"
+            class="tooltip tooltip-bottom"
+          >
+            <i class="fas fa-align-center"></i>
+          </button>
+          <button
+            class="btn btn-sm btn-ghost"
+            (click)="applyFormatting('align-right')"
+            data-tip="Align Right"
+            class="tooltip tooltip-bottom"
+          >
+            <i class="fas fa-align-right"></i>
+          </button>
+        </div>
+
+        <!-- Insert -->
+        <div class="btn-group">
+          <button
+            class="btn btn-sm btn-ghost"
+            (click)="insertElement('link')"
+            data-tip="Insert Link"
+            class="tooltip tooltip-bottom"
+          >
+            <i class="fas fa-link"></i>
+          </button>
+          <button
+            class="btn btn-sm btn-ghost"
+            (click)="insertElement('image')"
+            data-tip="Insert Image"
+            class="tooltip tooltip-bottom"
+          >
+            <i class="fas fa-image"></i>
+          </button>
+          <button
+            class="btn btn-sm btn-ghost"
+            (click)="insertElement('table')"
+            data-tip="Insert Table"
+            class="tooltip tooltip-bottom"
+          >
+            <i class="fas fa-table"></i>
+          </button>
+          <button
+            class="btn btn-sm btn-ghost"
+            (click)="insertElement('formula')"
+            data-tip="Insert Formula"
+            class="tooltip tooltip-bottom"
+          >
+            <i class="fas fa-square-root-alt"></i>
+          </button>
+        </div>
+
+        <!-- View Options -->
+        <div class="btn-group ml-auto">
+          <button
+            class="btn btn-sm btn-ghost"
+            (click)="toggleAIChat()"
+            data-tip="AI Assistant"
+            class="tooltip tooltip-bottom"
+          >
+            <i class="fas fa-robot"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Editor Content Area -->
+      <div
+        class="flex-1 overflow-auto p-6 editor-container max-h-[70dvh]"
+        [ngClass]="{ 'focus-mode-padding': isFocusMode }"
+      >
+        <!-- Edit View -->
+        <div
+          *ngIf="editorView === 'edit' || editorView === 'split'"
+          [ngClass]="{
+            'w-full': editorView === 'edit',
+            'w-1/2 pr-3': editorView === 'split'
+          }"
+        >
+          <div
+            [contentEditable]="!isReadOnly"
+            [innerHTML]="editorContent"
+            (input)="updateEditorContent('')"
+            class="outline-none prose prose-sm max-w-none min-h-[70dvh] h-full editor-content"
+            [ngClass]="{ 'read-only': isReadOnly }"
+          ></div>
+        </div>
+
+        <!-- Preview View -->
+        <div
+          *ngIf="editorView === 'preview' || editorView === 'split'"
+          [ngClass]="{
+            'w-full': editorView === 'preview',
+            'w-1/2 pl-3 border-l border-base-300': editorView === 'split'
+          }"
+          class="prose prose-sm max-w-none preview-content"
+        >
+          <div [innerHTML]="editorContent"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Panel (conditionally shown) -->
+    <div
+      *ngIf="isSettingsPanelOpen"
+      class="w-72 max-h-[76dvh] overflow-y-auto border-l border-base-300 bg-base-200 flex flex-col"
+    >
+      <div
+        class="p-4 border-b border-base-300 flex justify-between items-center"
+      >
+        <h3 class="font-medium">Settings</h3>
+        <button class="btn btn-ghost btn-sm" (click)="toggleSettingsPanel()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-4">
+        <div class="form-control mt-4">
+          <label class="label cursor-pointer justify-between">
+            <span class="label-text">Focus Mode</span>
+            <input
+              type="checkbox"
+              class="toggle toggle-primary"
+              [checked]="isFocusMode"
+              (change)="toggleFocusMode()"
+            />
+          </label>
+        </div>
+
+        <div class="form-control mt-4">
+          <label class="label cursor-pointer justify-between">
+            <span class="label-text">Auto Save</span>
+            <input
+              type="checkbox"
+              class="toggle toggle-primary"
+              [checked]="autoSave"
+              (change)="toggleAutoSave()"
+            />
+          </label>
+        </div>
+
+        <div class="form-control mt-4">
+          <label class="label cursor-pointer justify-between">
+            <span class="label-text">Read Only</span>
+            <input
+              type="checkbox"
+              class="toggle toggle-primary"
+              [checked]="isReadOnly"
+              (change)="toggleReadOnly()"
+            />
+          </label>
+        </div>
+
+        <div class="divider"></div>
+
+        <h4 class="font-medium mb-2">Document Information</h4>
+        <div class="text-sm">
+          <p>
+            <span class="opacity-70">Created:</span>
+            {{ currentNote.lastModified | date : "medium" }}
+          </p>
+          <p>
+            <span class="opacity-70">Word Count:</span>
+            <!-- editorContent.split(/\s+/).length - 1  -->
+          </p>
+          <p>
+            <span class="opacity-70">Reading Time:</span>
+            <!-- Math.ceil(editorContent.split(/\s+/).length / 200) -->
+            min
+          </p>
+        </div>
+
+        <div class="divider"></div>
+
+        <h4 class="font-medium mb-2">Tags</h4>
+        <div class="flex flex-wrap gap-1 mb-2">
+          <span
+            *ngFor="let tag of currentNote.tags"
+            class="badge badge-primary"
+            >{{ tag }}</span
+          >
+        </div>
+        <div class="flex gap-1">
+          <input
+            type="text"
+            placeholder="Add tag..."
+            class="input input-bordered input-sm flex-1"
+          />
+          <button class="btn btn-primary btn-sm">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Chat Panel (conditionally shown) -->
+    <div
+      *ngIf="isAIChatOpen"
+      class="w-80 border-l h-[76dvh] border-base-300 bg-base-200 flex flex-col"
+    >
+      <div
+        class="p-3 border-b border-base-300 flex justify-between items-center"
+      >
+        <h3 class="font-medium">AI Study Assistant</h3>
+        <button class="btn btn-ghost btn-sm" (click)="toggleAIChat()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-3">
+        <div class="chat chat-start">
+          <div class="chat-bubble chat-bubble-primary">
+            Hello! I'm your AI study assistant. How can I help you with your
+            notes on Quantum Mechanics?
+          </div>
+        </div>
+
+        <div class="chat chat-end">
+          <div class="chat-bubble">
+            Can you explain wave-particle duality in simple terms?
+          </div>
+        </div>
+
+        <div class="chat chat-start">
+          <div class="chat-bubble chat-bubble-primary">
+            Wave-particle duality is a concept that all particles exhibit both
+            wave-like and particle-like properties. For example, electrons can
+            behave as particles when observed in certain experiments, but they
+            can also create interference patterns like waves in other
+            experiments.
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3 border-t border-base-300">
+        <div class="flex gap-2">
+          <input
+            type="text"
+            placeholder="Ask a question..."
+            class="input input-bordered input-sm flex-1"
+          />
+          <button class="btn btn-primary btn-sm">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+        <div class="mt-2 flex flex-wrap gap-1">
+          <button class="btn btn-ghost btn-xs">Explain concept</button>
+          <button class="btn btn-ghost btn-xs">Summarize</button>
+          <button class="btn btn-ghost btn-xs">Quiz me</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Notes Panel -->
+  <div
+    class="border-t border-base-300 p-4 bg-base-200"
+    [ngClass]="{ hidden: isFocusMode }"
+  >
+    <div class="flex justify-between items-center mb-3">
+      <h3 class="font-medium">Recent Notes</h3>
+      <button class="btn btn-ghost btn-xs">View All</button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div
+        *ngFor="let note of recentNotes"
+        class="card bg-base-100 hover:bg-base-200 cursor-pointer transition-colors"
+        (click)="openNote(note)"
+      >
+        <div class="card-body p-4">
+          <div class="flex items-center justify-between">
+            <h4 class="card-title text-base">{{ note.title }}</h4>
+            <span *ngIf="note.readOnly" class="badge badge-sm">Read Only</span>
+          </div>
+          <div
+            class="text-sm opacity-70 line-clamp-2"
+            [innerHTML]="note.content"
+          ></div>
+          <div
+            class="flex justify-between items-center mt-2 text-xs opacity-70"
+          >
+            <span>{{ note.lastModified | date : "MMM d" }}</span>
+            <div class="flex gap-1">
+              <span
+                *ngFor="let tag of note.tags.slice(0, 2)"
+                class="badge badge-sm"
+                >{{ tag }}</span
+              >
+              <span *ngIf="note.tags.length > 2" class="badge badge-sm"
+                >+{{ note.tags.length - 2 }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

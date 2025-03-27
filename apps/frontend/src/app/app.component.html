@@ -1,0 +1,33 @@
+<div class="toast toast-top z-[1000] toast-center">
+  <div
+    *ngFor="let alert of alertService.alerts"
+    class="alert alert-success alert-dismissible text-white font-bold justify-between p-2"
+    [ngClass]="{ 'alert-success': alert.type === 'success', 'alert-error': alert.type === 'error', 'alert-info': alert.type === 'info', 'alert-warning': alert.type === 'warning', }"
+  >
+    <div class="flex items-center gap-4">
+      <div [ngSwitch]="alert.type" class="flex font-bold items-center">
+        <ng-icon
+          class="font-bold"
+          *ngSwitchCase="'warning'"
+          name="heroExclamationTriangle"
+        ></ng-icon>
+        <ng-icon *ngSwitchCase="'success'" name="heroCheckBadge"></ng-icon>
+        <ng-icon *ngSwitchCase="'info'" name="heroInformationCircle"></ng-icon>
+        <ng-icon
+          *ngSwitchCase="'error'"
+          name="heroExclamationTriangle"
+        ></ng-icon>
+      </div>
+      {{ alert.message }}
+    </div>
+
+    <button
+      (click)="alertService.removeAlert(alert.id)"
+      class="btn btn-ghost btn-sm btn-circle"
+    >
+      <ng-icon name="heroXMark"></ng-icon>
+    </button>
+  </div>
+</div>
+
+<router-outlet />

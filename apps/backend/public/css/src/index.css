@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@config "../../tailwind.config.js";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-wave: wave 12s linear infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    ,
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes wave {
+    0% {
+      transform: translateX(0);
+    }
+    ,
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+}
+@plugin "daisyui" {
+  themes: light, dark;
+}
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #8b5cf6;
+  --color-secondary: #7c3aed;
+  --color-accent: #c084fc;
+  --color-neutral: #1f2937;
+  --color-base-100: #ffffff;
+  --color-base-200: #f3f4f6;
+  --color-base-300: #e5e7eb;
+}
+
+@plugin "daisyui/theme" {
+  name: "dark";
+  --color-primary: #8b5cf6;
+  --color-secondary: #7c3aed;
+  --color-accent: #c084fc;
+  --color-neutral: #1f2937;
+  --color-base-100: #ffffff;
+  --color-base-200: #f3f4f6;
+  --color-base-300: #e5e7eb;
+}

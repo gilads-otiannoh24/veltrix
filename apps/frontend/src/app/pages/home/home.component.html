@@ -1,0 +1,479 @@
+<div class="min-h-screen veltrix-landing bg-base-100 text-base-content">
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="container px-4 mx-auto">
+      <div class="navbar bg-base-100 rounded-box">
+        <div class="navbar-start">
+          <div class="flex items-center">
+            <app-logo></app-logo>
+            <h1 class="ml-2 text-xl font-bold text-primary">Veltrix</h1>
+          </div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <div class="hidden navbar-center lg:flex">
+          <ul class="px-1 menu menu-horizontal">
+            <li><a (click)="scrollToSection('features')">Features</a></li>
+            <li>
+              <a (click)="scrollToSection('testimonials')">Testimonials</a>
+            </li>
+            <li><a (click)="scrollToSection('pricing')">Pricing</a></li>
+            <li><a (click)="scrollToSection('contact')">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="navbar-end">
+          <button class="btn btn-circle btn-ghost" (click)="toggleDarkMode()">
+            <span *ngIf="darkMode" class="material-icons">light_mode</span>
+            <span *ngIf="!darkMode" class="material-icons">dark_mode</span>
+          </button>
+
+          <div class="items-center hidden gap-2 lg:flex">
+            <a routerLink="/login" class="font-bold btn bg-secondary/40 btn-sm"
+              >Login</a
+            >
+
+            <a routerLink="/signup" class="font-bold btn btn-primary btn-sm"
+              >Register</a
+            >
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="dropdown dropdown-end lg:hidden">
+            <label tabindex="0" class="btn btn-ghost">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </label>
+            <ul
+              tabindex="0"
+              class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li><a (click)="scrollToSection('features')">Features</a></li>
+              <li>
+                <a (click)="scrollToSection('testimonials')">Testimonials</a>
+              </li>
+              <li><a (click)="scrollToSection('pricing')">Pricing</a></li>
+              <li><a (click)="scrollToSection('contact')">Contact</a></li>
+              <div class="divider divider-primary"></div>
+              <li>
+                <a
+                  class="w-full mb-2 btn btn-sm bg-secondary/40"
+                  routerLink="/login"
+                  >Login</a
+                >
+              </li>
+              <li>
+                <a class="w-full btn btn-sm btn-primary" routerLink="/signup"
+                  >Register</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="min-h-screen pt-20 hero bg-base-200">
+    <div class="flex-col hero-content lg:flex-row-reverse">
+      <div class="lg:w-1/2">
+        <img
+          src="/placeholder.svg?height=600&width=800"
+          alt="Veltrix Dashboard"
+          class="max-w-full rounded-lg shadow-2xl"
+        />
+      </div>
+      <div class="lg:w-1/2">
+        <h1 class="text-5xl font-bold">
+          Elevate Your <span class="text-primary">Learning Journey</span> with
+          Veltrix
+        </h1>
+        <p class="py-6">
+          The all-in-one study platform that helps you organize materials, track
+          progress, and achieve your academic goals with AI-powered assistance.
+        </p>
+        <div class="flex flex-col gap-4 sm:flex-row">
+          <a routerLink="/signup" class="btn btn-primary">Get Started Free</a>
+          <button class="btn btn-outline">
+            <span class="mr-2 material-icons">play_circle</span> Watch Demo
+          </button>
+        </div>
+        <div class="flex items-center mt-8">
+          <div class="-space-x-6 avatar-group">
+            <div class="avatar">
+              <div class="w-12">
+                <img src="/placeholder.svg?height=40&width=40" alt="User" />
+              </div>
+            </div>
+            <div class="avatar">
+              <div class="w-12">
+                <img src="/placeholder.svg?height=40&width=40" alt="User" />
+              </div>
+            </div>
+            <div class="avatar">
+              <div class="w-12">
+                <img src="/placeholder.svg?height=40&width=40" alt="User" />
+              </div>
+            </div>
+            <div class="avatar">
+              <div class="w-12">
+                <img src="/placeholder.svg?height=40&width=40" alt="User" />
+              </div>
+            </div>
+          </div>
+          <p class="ml-4 text-sm">
+            Joined by
+            <span class="font-medium text-primary">50,000+</span> students
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-16 bg-base-300">
+    <div class="container px-4 mx-auto">
+      <div class="w-full shadow stats">
+        <div class="stat" *ngFor="let stat of stats">
+          <div class="stat-value text-primary">{{ stat.value }}</div>
+          <div class="stat-desc">{{ stat.label }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-20">
+    <div class="container px-4 mx-auto">
+      <div class="mb-16 text-center">
+        <h2 class="mb-4 text-3xl font-bold">
+          Powerful Features for Effective Learning
+        </h2>
+        <p class="max-w-3xl mx-auto text-lg">
+          Veltrix combines powerful tools and intelligent features to help you
+          study smarter, not harder.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div
+          *ngFor="let feature of features"
+          class="transition-all duration-300 shadow-xl card bg-base-100 hover:shadow-2xl"
+        >
+          <div class="card-body">
+            <div class="flex items-center mb-4">
+              <div
+                class="flex items-center justify-center w-12 h-12 rounded-full bg-base-200"
+              >
+                <span class="material-icons {{ feature.color }}">{{
+                  feature.icon
+                }}</span>
+              </div>
+              <h3 class="ml-4 text-xl font-semibold">{{ feature.title }}</h3>
+            </div>
+            <p>{{ feature.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="py-20 bg-base-200">
+    <div class="container px-4 mx-auto">
+      <div class="mb-16 text-center">
+        <h2 class="mb-4 text-3xl font-bold">How Veltrix Works</h2>
+        <p class="max-w-3xl mx-auto text-lg">
+          Our platform is designed to support your entire learning journey from
+          start to finish.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div class="text-center">
+          <div class="p-6 mx-auto mb-6 text-2xl badge badge-primary badge-lg">
+            1
+          </div>
+          <h3 class="mb-3 text-xl font-semibold">Organize Your Materials</h3>
+          <p>
+            Upload study materials, create notes, and organize everything in one
+            place.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="p-6 mx-auto mb-6 text-2xl badge badge-primary badge-lg">
+            2
+          </div>
+          <h3 class="mb-3 text-xl font-semibold">Create Your Study Plan</h3>
+          <p>
+            Set goals, schedule study sessions, and create a personalized
+            learning path.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="p-6 mx-auto mb-6 text-2xl badge badge-primary badge-lg">
+            3
+          </div>
+          <h3 class="mb-3 text-xl font-semibold">Track Your Progress</h3>
+          <p>
+            Monitor your performance, identify areas for improvement, and
+            celebrate achievements.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-20">
+    <div class="container px-4 mx-auto">
+      <div class="mb-16 text-center">
+        <h2 class="mb-4 text-3xl font-bold">What Our Users Say</h2>
+        <p class="max-w-3xl mx-auto text-lg">
+          Join thousands of students who have transformed their study habits
+          with Veltrix.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <div class="shadow-xl card bg-base-100">
+          <div class="card-body">
+            <div class="flex justify-center mb-4">
+              <div class="rating">
+                <input
+                  type="radio"
+                  name="rating-2"
+                  class="bg-orange-400 mask mask-star-2"
+                  [checked]="testimonials[currentTestimonial].rating >= 1"
+                  disabled
+                />
+                <input
+                  type="radio"
+                  name="rating-2"
+                  class="bg-orange-400 mask mask-star-2"
+                  [checked]="testimonials[currentTestimonial].rating >= 2"
+                  disabled
+                />
+                <input
+                  type="radio"
+                  name="rating-2"
+                  class="bg-orange-400 mask mask-star-2"
+                  [checked]="testimonials[currentTestimonial].rating >= 3"
+                  disabled
+                />
+                <input
+                  type="radio"
+                  name="rating-2"
+                  class="bg-orange-400 mask mask-star-2"
+                  [checked]="testimonials[currentTestimonial].rating >= 4"
+                  disabled
+                />
+                <input
+                  type="radio"
+                  name="rating-2"
+                  class="bg-orange-400 mask mask-star-2"
+                  [checked]="testimonials[currentTestimonial].rating >= 5"
+                  disabled
+                />
+              </div>
+            </div>
+
+            <div class="text-center">
+              <p class="mb-6 text-xl italic">
+                "{{ testimonials[currentTestimonial].quote }}"
+              </p>
+
+              <div class="flex items-center justify-center">
+                <div class="avatar">
+                  <div class="w-16 rounded-full">
+                    <img
+                      [src]="testimonials[currentTestimonial].image"
+                      alt="User"
+                    />
+                  </div>
+                </div>
+                <div class="ml-4 text-left">
+                  <h4 class="font-semibold">
+                    {{ testimonials[currentTestimonial].name }}
+                  </h4>
+                  <p class="text-sm opacity-70">
+                    {{ testimonials[currentTestimonial].role }}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex justify-between mt-6">
+              <button class="btn btn-circle" (click)="prevTestimonial()">
+                <span class="material-icons">chevron_left</span>
+              </button>
+              <button class="btn btn-circle" (click)="nextTestimonial()">
+                <span class="material-icons">chevron_right</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="py-20 bg-base-200">
+    <div class="container px-4 mx-auto">
+      <div class="mb-16 text-center">
+        <h2 class="mb-4 text-3xl font-bold">Simple, Transparent Pricing</h2>
+        <p class="max-w-3xl mx-auto text-lg">
+          Choose the plan that fits your needs. All plans include a 14-day free
+          trial.
+        </p>
+      </div>
+
+      <div class="grid max-w-5xl grid-cols-1 gap-8 mx-auto md:grid-cols-3">
+        <div
+          *ngFor="let plan of pricingPlans"
+          class="shadow-xl card bg-base-100"
+          [ngClass]="{ 'border-2 border-primary': plan.popular }"
+        >
+          <div
+            *ngIf="plan.popular"
+            class="absolute badge badge-primary right-4 top-4"
+          >
+            Most Popular
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">{{ plan.name }}</h3>
+            <div class="flex items-baseline mb-6">
+              <span class="text-4xl font-bold">${{ plan.price }}</span>
+              <span class="ml-2 opacity-70">/month</span>
+            </div>
+
+            <ul class="mb-8 space-y-3">
+              <li
+                *ngFor="let feature of plan.features"
+                class="flex items-center"
+              >
+                <span class="mr-2 material-icons text-success">check</span>
+                <span>{{ feature }}</span>
+              </li>
+            </ul>
+
+            <div class="justify-center card-actions">
+              <button
+                class="w-full btn"
+                [ngClass]="plan.popular ? 'btn-primary' : 'btn-outline'"
+              >
+                {{ plan.cta }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20">
+    <div class="container px-4 mx-auto">
+      <div class="card bg-primary text-primary-content">
+        <div class="text-center card-body">
+          <h2 class="mb-4 text-3xl font-bold">
+            Ready to Transform Your Learning Experience?
+          </h2>
+          <p class="max-w-3xl mx-auto mb-8 text-xl">
+            Join thousands of students who are already using Veltrix to achieve
+            their academic goals.
+          </p>
+          <div class="justify-center card-actions">
+            <button class="btn btn-lg btn-outline btn-secondary">
+              Get Started Free
+            </button>
+          </div>
+          <p class="mt-4 text-sm">
+            No credit card required. 14-day free trial.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer
+    id="contact"
+    class="p-10 footer sm:footer-horizontal bg-neutral text-neutral-content"
+  >
+    <div>
+      <div class="flex items-center mb-4">
+        <app-logo></app-logo>
+        <h1 class="ml-2 text-xl font-bold text-primary-content">Veltrix</h1>
+      </div>
+      <p>
+        The all-in-one study platform for students<br />who want to achieve
+        more.
+      </p>
+      <div class="flex mt-4 space-x-4">
+        <a class="btn btn-circle btn-outline btn-sm">
+          <span class="material-icons">facebook</span>
+        </a>
+        <a class="btn btn-circle btn-outline btn-sm">
+          <span class="material-icons">twitter</span>
+        </a>
+        <a class="btn btn-circle btn-outline btn-sm">
+          <span class="material-icons">instagram</span>
+        </a>
+        <a class="btn btn-circle btn-outline btn-sm">
+          <span class="material-icons">linkedin</span>
+        </a>
+      </div>
+    </div>
+    <nav>
+      <span class="footer-title">Product</span>
+      <a class="link link-hover">Features</a>
+      <a class="link link-hover">Pricing</a>
+      <a class="link link-hover">Testimonials</a>
+      <a class="link link-hover">FAQ</a>
+    </nav>
+    <nav>
+      <span class="footer-title">Resources</span>
+      <a class="link link-hover">Blog</a>
+      <a class="link link-hover">Help Center</a>
+      <a class="link link-hover">Community</a>
+      <a class="link link-hover">Webinars</a>
+    </nav>
+    <nav>
+      <span class="footer-title">Contact</span>
+      <div class="flex items-center">
+        <span class="mr-2 material-icons">email</span>
+        <span>support&#64;veltrix.com</span>
+      </div>
+      <div class="flex items-center">
+        <span class="mr-2 material-icons">phone</span>
+        <span>+1 (555) 123-4567</span>
+      </div>
+      <div class="flex items-center">
+        <span class="mr-2 material-icons">location_on</span>
+        <span>123 Education St, San Francisco, CA</span>
+      </div>
+    </nav>
+  </footer>
+
+  <footer class="p-4 footer footer-center bg-base-300 text-base-content">
+    <div>
+      <p>&copy; {{ 2025 }} Veltrix. All rights reserved.</p>
+    </div>
+  </footer>
+</div>

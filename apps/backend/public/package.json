@@ -1,0 +1,20 @@
+{
+  "scripts": {
+    "dev": "concurrently \"webpack --watch\" \"postcss css/src/index.css -o css/main.css --watch\""
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.11",
+    "alpinejs": "^3.14.8",
+    "daisyui": "^5.0.0",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^4.0.11"
+  },
+  "dependencies": {
+    "babel-loader": "^10.0.0",
+    "concurrently": "^9.1.2",
+    "lodash": "^4.17.21",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1"
+  }
+}

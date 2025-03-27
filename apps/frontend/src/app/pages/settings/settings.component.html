@@ -1,0 +1,976 @@
+<div class="flex-1 overflow-auto p-6">
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+    <!-- Settings Navigation -->
+    <div class="lg:col-span-1">
+      <div class="glassmorphism p-4">
+        <h3 class="text-lg font-semibold mb-4">Settings</h3>
+        <nav class="space-y-1 flex flex-col">
+          <button
+            (click)="activeTab = 'account'"
+            class="w-full flex p-2"
+            [ngClass]="
+              activeTab === 'account'
+                ? 'bg-purple-100 dark:bg-gray-700 text-purple-600'
+                : 'hover:bg-purple-50 dark:hover:bg-gray-800'
+            "
+          >
+            <i class="fas fa-user-circle mr-2"></i> Account
+          </button>
+          <button
+            (click)="activeTab = 'profile'"
+            class="w-full flex p-2"
+            [ngClass]="
+              activeTab === 'profile'
+                ? 'bg-purple-100 dark:bg-gray-700 text-purple-600'
+                : 'hover:bg-purple-50 dark:hover:bg-gray-800'
+            "
+          >
+            <i class="fas fa-id-card mr-2"></i> Profile
+          </button>
+          <button
+            (click)="activeTab = 'appearance'"
+            class="w-full flex p-2"
+            [ngClass]="
+              activeTab === 'appearance'
+                ? 'bg-purple-100 dark:bg-gray-700 text-purple-600'
+                : 'hover:bg-purple-50 dark:hover:bg-gray-800'
+            "
+          >
+            <i class="fas fa-paint-brush mr-2"></i> Appearance
+          </button>
+          <button
+            (click)="activeTab = 'notifications'"
+            class="w-full flex p-2"
+            [ngClass]="
+              activeTab === 'notifications'
+                ? 'bg-purple-100 dark:bg-gray-700 text-purple-600'
+                : 'hover:bg-purple-50 dark:hover:bg-gray-800'
+            "
+          >
+            <i class="fas fa-bell mr-2"></i> Notifications
+          </button>
+          <button
+            (click)="activeTab = 'privacy'"
+            class="w-full flex p-2"
+            [ngClass]="
+              activeTab === 'privacy'
+                ? 'bg-purple-100 dark:bg-gray-700 text-purple-600'
+                : 'hover:bg-purple-50 dark:hover:bg-gray-800'
+            "
+          >
+            <i class="fas fa-shield-alt mr-2"></i> Privacy & Security
+          </button>
+          <button
+            (click)="activeTab = 'study'"
+            class="w-full flex p-2"
+            [ngClass]="
+              activeTab === 'study'
+                ? 'bg-purple-100 dark:bg-gray-700 text-purple-600'
+                : 'hover:bg-purple-50 dark:hover:bg-gray-800'
+            "
+          >
+            <i class="fas fa-book mr-2"></i> Study Preferences
+          </button>
+          <button
+            (click)="activeTab = 'integrations'"
+            class="w-full flex p-2"
+            [ngClass]="
+              activeTab === 'integrations'
+                ? 'bg-purple-100 dark:bg-gray-700 text-purple-600'
+                : 'hover:bg-purple-50 dark:hover:bg-gray-800'
+            "
+          >
+            <i class="fas fa-plug mr-2"></i> Integrations
+          </button>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Settings Content -->
+    <div class="lg:col-span-3">
+      <!-- Account Settings -->
+      <div *ngIf="activeTab === 'account'" class="glassmorphism p-6">
+        <h3 class="text-xl font-semibold mb-6">Account Settings</h3>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend" for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            class="input w-full"
+            value="alex.johnson@example.com"
+          />
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend" for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            class="input w-full"
+            value="alexjohnson"
+          />
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend">Change Password</label>
+          <div class="space-y-3">
+            <input
+              type="password"
+              placeholder="Current Password"
+              class="input w-full"
+            />
+            <input
+              type="password"
+              placeholder="New Password"
+              class="input w-full"
+            />
+            <input
+              type="password"
+              placeholder="Confirm New Password"
+              class="input w-full"
+            />
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend">Two-Factor Authentication</label>
+          <div
+            class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div>
+              <p class="text-sm font-medium">Protect your account with 2FA</p>
+              <p class="text-xs text-gray-500">
+                Add an extra layer of security to your account
+              </p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend">Danger Zone</label>
+          <div
+            class="p-4 border border-red-200 dark:border-red-900 rounded-lg bg-red-50 dark:bg-red-900/20"
+          >
+            <h4 class="text-sm font-medium text-red-600 dark:text-red-400 mb-2">
+              Delete Account
+            </h4>
+            <p class="text-xs text-gray-600 dark:text-gray-400 mb-3">
+              Once you delete your account, there is no going back. Please be
+              certain.
+            </p>
+            <button
+              class="px-3 py-1.5 text-sm text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
+            >
+              Delete Account
+            </button>
+          </div>
+        </fieldset>
+
+        <div class="mt-6 flex justify-end">
+          <button
+            class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg mr-3 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+
+      <!-- Profile Settings -->
+      <div *ngIf="activeTab === 'profile'" class="glassmorphism p-6">
+        <h3 class="text-xl font-semibold mb-6">Profile Settings</h3>
+
+        <div class="mb-6">
+          <label class="fieldset-legend">Profile Picture</label>
+          <div class="flex items-center">
+            <img
+              src="/placeholder.svg?height=80&width=80"
+              alt="Profile"
+              class="h-20 w-20 rounded-full"
+            />
+            <div class="ml-4">
+              <button
+                class="px-3 py-1.5 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors mb-2"
+              >
+                Upload New Picture
+              </button>
+              <p class="text-xs text-gray-500">
+                JPG, GIF or PNG. Max size 2MB.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <fieldset class="fieldset">
+            <label class="fieldset-legend" for="firstName">First Name</label>
+            <input
+              type="text"
+              id="firstName"
+              class="input w-full"
+              value="Alex"
+            />
+          </fieldset>
+
+          <fieldset class="fieldset">
+            <label class="fieldset-legend" for="lastName">Last Name</label>
+            <input
+              type="text"
+              id="lastName"
+              class="input w-full"
+              value="Johnson"
+            />
+          </fieldset>
+        </div>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend" for="bio">Bio</label>
+          <textarea id="bio" class="textarea h-16 w-full">
+Computer Science student passionate about AI and machine learning. I use Veltrix to organize my study materials and prepare for exams.</textarea
+          >
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend" for="location">Location</label>
+          <input
+            type="text"
+            id="location"
+            class="input w-full"
+            value="San Francisco, CA"
+          />
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend" for="education">Education</label>
+          <input
+            type="text"
+            id="education"
+            class="input w-full"
+            value="Stanford University"
+          />
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend">Study Interests</label>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-purple-100 dark:bg-gray-700 text-purple-600"
+            >
+              Physics
+              <button class="ml-1 text-purple-400 hover:text-purple-600">
+                <i class="fas fa-times-circle"></i>
+              </button>
+            </span>
+            <span
+              class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-purple-100 dark:bg-gray-700 text-purple-600"
+            >
+              Mathematics
+              <button class="ml-1 text-purple-400 hover:text-purple-600">
+                <i class="fas fa-times-circle"></i>
+              </button>
+            </span>
+            <span
+              class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-purple-100 dark:bg-gray-700 text-purple-600"
+            >
+              Computer Science
+              <button class="ml-1 text-purple-400 hover:text-purple-600">
+                <i class="fas fa-times-circle"></i>
+              </button>
+            </span>
+            <button
+              class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600"
+            >
+              <i class="fas fa-plus mr-1"></i> Add Interest
+            </button>
+          </div>
+        </fieldset>
+
+        <div class="mt-6 flex justify-end">
+          <button
+            class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg mr-3 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+
+      <!-- Appearance Settings -->
+      <div *ngIf="activeTab === 'appearance'" class="glassmorphism p-6">
+        <h3 class="text-xl font-semibold mb-6">Appearance Settings</h3>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend">Theme</label>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div
+              class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 cursor-pointer hover:border-purple-500 transition-colors"
+              [ngClass]="{ 'border-purple-500': !themeService.getDarkMode() }"
+            >
+              <div
+                class="h-20 bg-white rounded-lg mb-3 flex items-center justify-center"
+              >
+                <span class="text-black">Light Mode</span>
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="radio"
+                  id="lightMode"
+                  name="theme"
+                  class="mr-2"
+                  [checked]="!themeService.getDarkMode()"
+                  (change)="themeService.setTheme('light')"
+                />
+                <label for="lightMode" class="text-sm font-medium">Light</label>
+              </div>
+            </div>
+
+            <div
+              class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 cursor-pointer hover:border-purple-500 transition-colors"
+              [ngClass]="{ 'border-purple-500': themeService.getDarkMode() }"
+            >
+              <div
+                class="h-20 bg-gray-900 rounded-lg mb-3 flex items-center justify-center"
+              >
+                <span class="text-white">Dark Mode</span>
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="radio"
+                  id="darkMode"
+                  name="theme"
+                  class="mr-2"
+                  [checked]="themeService.getDarkMode()"
+                  (change)="themeService.setTheme('dark')"
+                />
+                <label for="darkMode" class="text-sm font-medium">Dark</label>
+              </div>
+            </div>
+
+            <div
+              class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 cursor-pointer hover:border-purple-500 transition-colors"
+            >
+              <div
+                class="h-20 bg-gradient-to-r from-white to-gray-900 rounded-lg mb-3 flex items-center justify-center"
+              >
+                <span class="text-black">System</span>
+              </div>
+              <div class="flex items-center">
+                <input type="radio" id="systemMode" name="theme" class="mr-2" />
+                <label for="systemMode" class="text-sm font-medium"
+                  >System Default</label
+                >
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend">Font Size</label>
+          <div class="flex items-center">
+            <span class="text-sm mr-3">A</span>
+            <input
+              type="range"
+              min="1"
+              max="5"
+              value="3"
+              class="w-full max-w-md"
+            />
+            <span class="text-lg ml-3">A</span>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend">Sidebar Position</label>
+          <div class="flex space-x-4">
+            <div class="flex items-center">
+              <input
+                type="radio"
+                id="leftSidebar"
+                name="sidebarPosition"
+                class="mr-2"
+                checked
+              />
+              <label for="leftSidebar" class="text-sm font-medium">Left</label>
+            </div>
+            <div class="flex items-center">
+              <input
+                type="radio"
+                id="rightSidebar"
+                name="sidebarPosition"
+                class="mr-2"
+              />
+              <label for="rightSidebar" class="text-sm font-medium"
+                >Right</label
+              >
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend">Animations</label>
+          <div
+            class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div>
+              <p class="text-sm font-medium">Enable animations</p>
+              <p class="text-xs text-gray-500">
+                Smoother transitions between pages and elements
+              </p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="mt-6 flex justify-end">
+          <button
+            class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg mr-3 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+
+      <!-- Notifications Settings -->
+      <div *ngIf="activeTab === 'notifications'" class="glassmorphism p-6">
+        <h3 class="text-xl font-semibold mb-6">Notification Settings</h3>
+
+        <div class="space-y-4">
+          <div
+            class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div>
+              <p class="text-sm font-medium">Study Reminders</p>
+              <p class="text-xs text-gray-500">
+                Receive reminders for scheduled study sessions
+              </p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div
+            class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div>
+              <p class="text-sm font-medium">Community Activity</p>
+              <p class="text-xs text-gray-500">
+                Get notified about replies and mentions
+              </p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div
+            class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div>
+              <p class="text-sm font-medium">New Features</p>
+              <p class="text-xs text-gray-500">
+                Learn about new Veltrix features and updates
+              </p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div
+            class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div>
+              <p class="text-sm font-medium">Study Group Updates</p>
+              <p class="text-xs text-gray-500">
+                Notifications about your study groups
+              </p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div
+            class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div>
+              <p class="text-sm font-medium">Email Notifications</p>
+              <p class="text-xs text-gray-500">
+                Receive email notifications for important updates
+              </p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div
+            class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div>
+              <p class="text-sm font-medium">Push Notifications</p>
+              <p class="text-xs text-gray-500">
+                Receive push notifications on your device
+              </p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="mt-6 flex justify-end">
+          <button
+            class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg mr-3 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+
+      <!-- Privacy Settings -->
+      <div *ngIf="activeTab === 'privacy'" class="glassmorphism p-6">
+        <h3 class="text-xl font-semibold mb-6">Privacy & Security Settings</h3>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend">Profile Visibility</label>
+          <div class="space-y-3">
+            <div class="flex items-center">
+              <input
+                type="radio"
+                id="public"
+                name="profileVisibility"
+                class="mr-2"
+                checked
+              />
+              <label for="public" class="text-sm font-medium">Public</label>
+              <p class="text-xs text-gray-500 ml-5">
+                Anyone can view your profile
+              </p>
+            </div>
+            <div class="flex items-center">
+              <input
+                type="radio"
+                id="private"
+                name="profileVisibility"
+                class="mr-2"
+              />
+              <label for="private" class="text-sm font-medium">Private</label>
+              <p class="text-xs text-gray-500 ml-5">
+                Only approved followers can view your profile
+              </p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend">Study Data</label>
+          <div
+            class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div>
+              <p class="text-sm font-medium">Share study data with AI</p>
+              <p class="text-xs text-gray-500">
+                Allow AI to analyze your study patterns for better
+                recommendations
+              </p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend">Notes Privacy</label>
+          <div
+            class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div>
+              <p class="text-sm font-medium">Make notes private by default</p>
+              <p class="text-xs text-gray-500">
+                New notes will be private unless you choose to share them
+              </p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend">Activity Status</label>
+          <div
+            class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div>
+              <p class="text-sm font-medium">Show when you're active</p>
+              <p class="text-xs text-gray-500">
+                Let others see when you're online
+              </p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend">Data Export</label>
+          <div
+            class="p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <p class="text-sm font-medium mb-2">Download your data</p>
+            <p class="text-xs text-gray-500 mb-3">
+              Get a copy of your personal data, including notes, study history,
+              and profile information
+            </p>
+            <button
+              class="px-3 py-1.5 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+            >
+              Request Data Export
+            </button>
+          </div>
+        </fieldset>
+
+        <div class="mt-6 flex justify-end">
+          <button
+            class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg mr-3 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+
+      <!-- Study Preferences -->
+      <div *ngIf="activeTab === 'study'" class="glassmorphism p-6">
+        <h3 class="text-xl font-semibold mb-6">Study Preferences</h3>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend">Study Session Duration</label>
+          <div class="flex items-center">
+            <select class="input w-full">
+              <option>25 minutes</option>
+              <option selected>30 minutes</option>
+              <option>45 minutes</option>
+              <option>60 minutes</option>
+              <option>Custom</option>
+            </select>
+            <span class="mx-3 text-sm text-gray-500">Break:</span>
+            <select class="input w-full">
+              <option>5 minutes</option>
+              <option selected>10 minutes</option>
+              <option>15 minutes</option>
+              <option>Custom</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend">Default Editor Settings</label>
+          <div class="space-y-3">
+            <div
+              class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+            >
+              <div>
+                <p class="text-sm font-medium">Auto-save</p>
+                <p class="text-xs text-gray-500">
+                  Automatically save notes while typing
+                </p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div
+              class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+            >
+              <div>
+                <p class="text-sm font-medium">Spell check</p>
+                <p class="text-xs text-gray-500">
+                  Highlight spelling errors in notes
+                </p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div
+              class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+            >
+              <div>
+                <p class="text-sm font-medium">Focus mode</p>
+                <p class="text-xs text-gray-500">
+                  Highlight the paragraph you're currently editing
+                </p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend">AI Assistant</label>
+          <div class="space-y-3">
+            <div
+              class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+            >
+              <div>
+                <p class="text-sm font-medium">Proactive suggestions</p>
+                <p class="text-xs text-gray-500">
+                  Allow AI to suggest study materials based on your notes
+                </p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div
+              class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+            >
+              <div>
+                <p class="text-sm font-medium">Auto-summarize</p>
+                <p class="text-xs text-gray-500">
+                  Automatically generate summaries of your study materials
+                </p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="fieldset-legend">Study Reminders</label>
+          <div
+            class="p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div class="flex items-center justify-between mb-3">
+              <p class="text-sm font-medium">Enable study reminders</p>
+              <label class="toggle-switch">
+                <input type="checkbox" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="grid grid-cols-7 gap-2">
+              <button
+                class="p-2 rounded-full bg-purple-100 dark:bg-gray-700 text-purple-600 text-xs font-medium"
+              >
+                Mon
+              </button>
+              <button
+                class="p-2 rounded-full bg-purple-100 dark:bg-gray-700 text-purple-600 text-xs font-medium"
+              >
+                Tue
+              </button>
+              <button
+                class="p-2 rounded-full bg-purple-100 dark:bg-gray-700 text-purple-600 text-xs font-medium"
+              >
+                Wed
+              </button>
+              <button
+                class="p-2 rounded-full bg-purple-100 dark:bg-gray-700 text-purple-600 text-xs font-medium"
+              >
+                Thu
+              </button>
+              <button
+                class="p-2 rounded-full bg-purple-100 dark:bg-gray-700 text-purple-600 text-xs font-medium"
+              >
+                Fri
+              </button>
+              <button
+                class="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 text-xs font-medium"
+              >
+                Sat
+              </button>
+              <button
+                class="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 text-xs font-medium"
+              >
+                Sun
+              </button>
+            </div>
+            <div class="mt-3 flex items-center">
+              <span class="text-sm mr-3">Time:</span>
+              <input type="time" class="input w-full" value="18:00" />
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="mt-6 flex justify-end">
+          <button
+            class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg mr-3 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+
+      <!-- Integrations -->
+      <div *ngIf="activeTab === 'integrations'" class="glassmorphism p-6">
+        <h3 class="text-xl font-semibold mb-6">Integrations</h3>
+
+        <div class="space-y-6">
+          <div
+            class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div class="flex items-center">
+              <div
+                class="h-12 w-12 rounded-lg bg-blue-100 dark:bg-blue-900 flex items-center justify-center"
+              >
+                <i class="fab fa-google text-blue-600 text-xl"></i>
+              </div>
+              <div class="ml-4">
+                <h4 class="text-sm font-medium">Google Calendar</h4>
+                <p class="text-xs text-gray-500">
+                  Sync your study schedule with Google Calendar
+                </p>
+              </div>
+            </div>
+            <button
+              class="px-3 py-1.5 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+            >
+              Connect
+            </button>
+          </div>
+
+          <div
+            class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div class="flex items-center">
+              <div
+                class="h-12 w-12 rounded-lg bg-blue-100 dark:bg-blue-900 flex items-center justify-center"
+              >
+                <i class="fab fa-dropbox text-blue-600 text-xl"></i>
+              </div>
+              <div class="ml-4">
+                <h4 class="text-sm font-medium">Dropbox</h4>
+                <p class="text-xs text-gray-500">
+                  Connect to store and access your study materials
+                </p>
+              </div>
+            </div>
+            <button
+              class="px-3 py-1.5 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+            >
+              Connect
+            </button>
+          </div>
+
+          <div
+            class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div class="flex items-center">
+              <div
+                class="h-12 w-12 rounded-lg bg-green-100 dark:bg-green-900 flex items-center justify-center"
+              >
+                <i class="fab fa-spotify text-green-600 text-xl"></i>
+              </div>
+              <div class="ml-4">
+                <h4 class="text-sm font-medium">Spotify</h4>
+                <p class="text-xs text-gray-500">
+                  Access study playlists and focus music
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <span class="text-xs text-green-600 mr-3">Connected</span>
+              <button
+                class="px-3 py-1.5 text-sm bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+              >
+                Disconnect
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div class="flex items-center">
+              <div
+                class="h-12 w-12 rounded-lg bg-blue-100 dark:bg-blue-900 flex items-center justify-center"
+              >
+                <i class="fab fa-discord text-blue-600 text-xl"></i>
+              </div>
+              <div class="ml-4">
+                <h4 class="text-sm font-medium">Discord</h4>
+                <p class="text-xs text-gray-500">
+                  Join study groups and get notifications
+                </p>
+              </div>
+            </div>
+            <button
+              class="px-3 py-1.5 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+            >
+              Connect
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <button
+            class="text-sm text-purple-600 hover:underline flex items-center"
+          >
+            <i class="fas fa-plus mr-2"></i> Add Custom Integration
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

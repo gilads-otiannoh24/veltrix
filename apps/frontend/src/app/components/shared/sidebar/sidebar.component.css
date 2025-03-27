@@ -1,0 +1,5 @@
+.sidebar li.active {
+  a {
+    background-color: var(--color-base-300);
+  }
+}

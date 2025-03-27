@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Veltrix Loading States</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {},
+        },
+        daisyui: {
+          themes: [
+            {
+              light: {
+                ...require("daisyui/src/theming/themes")["light"],
+                primary: "#8B5CF6",
+                secondary: "#A78BFA",
+                accent: "#C4B5FD",
+              },
+              dark: {
+                ...require("daisyui/src/theming/themes")["dark"],
+                primary: "#8B5CF6",
+                secondary: "#A78BFA",
+                accent: "#C4B5FD",
+              },
+            },
+          ],
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="style-test.css" />
+  </head>
+  <body class="bg-base-100 text-base-content">
+    <div class="container px-4 py-8 mx-auto">
+      <h1 class="mb-8 text-3xl font-bold text-center">
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
+        >
+          Veltrix Loading States
+        </span>
+      </h1>
+
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <!-- Spinner Loaders -->
+        <div class="shadow-md card bg-base-200">
+          <div class="card-body">
+            <h2 class="card-title text-primary">Spinner Loaders</h2>
+            <div class="divider"></div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <!-- Basic Spinner -->
+              <div
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="spinner-basic"></div>
+                <p class="mt-2 text-sm">Basic Spinner</p>
+              </div>
+
+              <!-- Dual Ring -->
+              <div
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="spinner-dual-ring"></div>
+                <p class="mt-2 text-sm">Dual Ring</p>
+              </div>
+
+              <!-- Triple Dot -->
+              <div
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="spinner-triple-dot">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+                <p class="mt-2 text-sm">Triple Dot</p>
+              </div>
+
+              <!-- Ripple -->
+              <div
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="spinner-ripple">
+                  <div></div>
+                  <div></div>
+                </div>
+                <p class="mt-2 text-sm">Ripple</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Bars -->
+        <div class="shadow-md card bg-base-200">
+          <div class="card-body">
+            <h2 class="card-title text-primary">Progress Bars</h2>
+            <div class="divider"></div>
+
+            <div class="space-y-6">
+              <!-- Linear Progress -->
+              <div class="flex flex-col p-4 rounded-lg bg-base-100">
+                <div class="progress-linear"></div>
+                <p class="mt-2 text-sm">Linear Progress</p>
+              </div>
+
+              <!-- Gradient Progress -->
+              <div class="flex flex-col p-4 rounded-lg bg-base-100">
+                <div class="progress-gradient"></div>
+                <p class="mt-2 text-sm">Gradient Progress</p>
+              </div>
+
+              <!-- Stepped Progress -->
+              <div class="flex flex-col p-4 rounded-lg bg-base-100">
+                <div class="progress-stepped">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+                <p class="mt-2 text-sm">Stepped Progress</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skeleton Loaders -->
+        <div class="shadow-md card bg-base-200">
+          <div class="card-body">
+            <h2 class="card-title text-primary">Skeleton Loaders</h2>
+            <div class="divider"></div>
+
+            <!-- Card Skeleton -->
+            <div class="p-4 mb-4 rounded-lg bg-base-100">
+              <div class="skeleton-card">
+                <div class="skeleton-header"></div>
+                <div class="skeleton-body">
+                  <div class="skeleton-line"></div>
+                  <div class="skeleton-line"></div>
+                  <div class="skeleton-line"></div>
+                </div>
+              </div>
+              <p class="mt-2 text-sm">Card Skeleton</p>
+            </div>
+
+            <!-- Profile Skeleton -->
+            <div class="p-4 rounded-lg bg-base-100">
+              <div class="skeleton-profile">
+                <div class="skeleton-avatar"></div>
+                <div class="skeleton-details">
+                  <div class="skeleton-name"></div>
+                  <div class="skeleton-info"></div>
+                </div>
+              </div>
+              <p class="mt-2 text-sm">Profile Skeleton</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text Loaders -->
+        <div class="shadow-md card bg-base-200">
+          <div class="card-body">
+            <h2 class="card-title text-primary">Text Loaders</h2>
+            <div class="divider"></div>
+
+            <div class="space-y-6">
+              <!-- Dots Text -->
+              <div
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="text-loader-dots">
+                  <span>Loading</span>
+                </div>
+                <p class="mt-2 text-sm">Dots Text</p>
+              </div>
+
+              <!-- Typing Text -->
+              <div
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="text-loader-typing">
+                  <span>Veltrix</span>
+                </div>
+                <p class="mt-2 text-sm">Typing Text</p>
+              </div>
+
+              <!-- Flip Text -->
+              <div
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="text-loader-flip">
+                  <span data-text="Loading...">Loading...</span>
+                </div>
+                <p class="mt-2 text-sm">Flip Text</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pulse Effects -->
+        <div class="shadow-md card bg-base-200">
+          <div class="card-body">
+            <h2 class="card-title text-primary">Pulse Effects</h2>
+            <div class="divider"></div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <!-- Circle Pulse -->
+              <div
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="pulse-circle"></div>
+                <p class="mt-2 text-sm">Circle Pulse</p>
+              </div>
+
+              <!-- Multi Pulse -->
+              <div
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="pulse-multi">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+                <p class="mt-2 text-sm">Multi Pulse</p>
+              </div>
+
+              <!-- Wave Pulse -->
+              <div
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="pulse-wave">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+                <p class="mt-2 text-sm">Wave Pulse</p>
+              </div>
+
+              <!-- Heartbeat -->
+              <div
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="pulse-heartbeat">
+                  <i class="fas fa-heart"></i>
+                </div>
+                <p class="mt-2 text-sm">Heartbeat</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Logo Loaders -->
+        <div class="shadow-md card bg-base-200">
+          <div class="card-body">
+            <h2 class="card-title text-primary">Logo Loaders</h2>
+            <div class="divider"></div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <!-- Logo Fade -->
+              <div
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="logo-fade">
+                  <span>V</span>
+                </div>
+                <p class="mt-2 text-sm">Logo Fade</p>
+              </div>
+
+              <!-- Logo Rotate -->
+              <div
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="logo-rotate">
+                  <span>V</span>
+                </div>
+                <p class="mt-2 text-sm">Logo Rotate</p>
+              </div>
+
+              <!-- Logo Bounce -->
+              <div
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="logo-bounce">
+                  <span>V</span>
+                  <span>E</span>
+                  <span>L</span>
+                  <span>T</span>
+                  <span>R</span>
+                  <span>I</span>
+                  <span>X</span>
+                </div>
+                <p class="mt-2 text-sm">Logo Bounce</p>
+              </div>
+
+              <!-- Logo Reveal -->
+              <div
+                class="flex flex-col items-center justify-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="logo-reveal">
+                  <svg viewBox="0 0 100 100" width="60" height="60">
+                    <path
+                      class="logo-path"
+                      d="M 20,20 L 80,20 L 50,80 Z"
+                      fill="none"
+                      stroke="#8B5CF6"
+                      stroke-width="5"
+                    />
+                  </svg>
+                </div>
+                <p class="mt-2 text-sm">Logo Reveal</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full Page Loaders -->
+        <div
+          class="col-span-1 shadow-md card bg-base-200 md:col-span-2 lg:col-span-3"
+        >
+          <div class="card-body">
+            <h2 class="card-title text-primary">Full Page Loaders</h2>
+            <div class="divider"></div>
+
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+              <!-- Centered Spinner -->
+              <div
+                class="flex flex-col items-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="fullpage-preview">
+                  <div class="fullpage-centered">
+                    <div class="spinner-basic"></div>
+                    <p class="mt-4 font-medium text-primary">Loading...</p>
+                  </div>
+                </div>
+                <p class="mt-2 text-sm">Centered Spinner</p>
+              </div>
+
+              <!-- Overlay with Logo -->
+              <div
+                class="flex flex-col items-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="fullpage-preview">
+                  <div class="fullpage-overlay">
+                    <div class="logo-bounce">
+                      <span>V</span>
+                      <span>E</span>
+                      <span>L</span>
+                      <span>T</span>
+                      <span>R</span>
+                      <span>I</span>
+                      <span>X</span>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-2 text-sm">Overlay with Logo</p>
+              </div>
+
+              <!-- Progress with Message -->
+              <div
+                class="flex flex-col items-center p-4 rounded-lg bg-base-100"
+              >
+                <div class="fullpage-preview">
+                  <div class="fullpage-progress">
+                    <div class="progress-gradient"></div>
+                    <p class="mt-4 font-medium text-primary">
+                      Preparing your dashboard...
+                    </p>
+                  </div>
+                </div>
+                <p class="mt-2 text-sm">Progress with Message</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Font Awesome for icons -->
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

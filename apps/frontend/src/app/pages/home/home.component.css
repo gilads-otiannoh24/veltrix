@@ -1,0 +1,100 @@
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--base-200);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-focus);
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.hero img {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Custom styles for cards */
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Custom styles for buttons */
+.btn {
+  text-transform: none;
+  font-weight: 500;
+}
+
+/* Custom styles for navbar */
+.navbar {
+  transition: all 0.3s ease;
+}
+
+/* Custom styles for links */
+a {
+  cursor: pointer;
+}
+
+/* Custom styles for testimonials */
+.rating {
+  margin-bottom: 1rem;
+}
+
+/* Custom styles for pricing cards */
+.card.border-2 {
+  position: relative;
+  z-index: 1;
+  transform: scale(1.05);
+}
+
+/* Custom styles for footer */
+.footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom styles for material icons */
+.material-icons {
+  vertical-align: middle;
+}
+
+/* Custom styles for badges */
+.badge.badge-lg {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Custom styles for avatar group */
+.avatar-group .avatar {
+  border: 2px solid var(--base-100);
+}

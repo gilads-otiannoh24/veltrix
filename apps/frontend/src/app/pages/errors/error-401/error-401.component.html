@@ -1,0 +1,146 @@
+<div class="flex items-center justify-center min-h-screen px-4 bg-base-100">
+  <div class="w-full max-w-4xl">
+    <!-- Veltrix Logo -->
+    <div class="flex justify-center mb-8">
+      <div class="flex items-center">
+        <app-logo class="mr-4"></app-logo>
+        <span
+          class="text-3xl font-bold text-transparent bg-gradient-to-r from-primary to-purple-400 bg-clip-text"
+          >Veltrix</span
+        >
+      </div>
+    </div>
+
+    <div class="overflow-hidden shadow-xl card bg-base-200">
+      <div class="p-0 card-body">
+        <div class="grid grid-cols-1 md:grid-cols-2">
+          <!-- Left side: Illustration -->
+          <div
+            class="flex items-center justify-center p-8 bg-gradient-to-br from-primary/10 to-purple-400/10"
+          >
+            <div class="relative w-64 h-64">
+              <!-- Key and lock illustration -->
+              <div class="key-lock-container">
+                <div class="key">
+                  <div class="key-head"></div>
+                  <div class="key-shaft"></div>
+                  <div class="key-teeth"></div>
+                </div>
+                <div class="lock">
+                  <div class="lock-body"></div>
+                  <div class="lock-keyhole"></div>
+                </div>
+                <div class="key-animation"></div>
+              </div>
+
+              <!-- 401 text -->
+              <div class="absolute bottom-0 w-full text-center">
+                <span class="text-6xl font-bold text-primary">401</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right side: Content -->
+          <div class="p-8">
+            <h1 class="mb-4 text-3xl font-bold">Authentication Required</h1>
+            <p class="mb-6 text-base-content/70">
+              Your session has expired or you need to sign in to access this
+              page. Please login to continue.
+            </p>
+
+            <!-- Login form -->
+            <form (ngSubmit)="login()" class="space-y-4">
+              <div class="fieldset">
+                <label class="fieldset-legend">
+                  <span class="label-text">Email</span>
+                </label>
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  class="w-full input"
+                  [(ngModel)]="email"
+                  name="email"
+                  required
+                />
+              </div>
+
+              <div class="fieldset">
+                <label class="fieldset-legend">
+                  <span class="label-text">Password</span>
+                  <a
+                    (click)="forgotPassword()"
+                    class="label-text-alt link link-primary"
+                    >Forgot password?</a
+                  >
+                </label>
+                <input
+                  type="password"
+                  placeholder="••••••••"
+                  class="w-full input input-bordered"
+                  [(ngModel)]="password"
+                  name="password"
+                  required
+                />
+              </div>
+
+              <div class="form-control">
+                <label class="justify-start gap-2 cursor-pointer label">
+                  <input
+                    type="checkbox"
+                    class="checkbox checkbox-primary"
+                    [(ngModel)]="rememberMe"
+                    name="rememberMe"
+                  />
+                  <span class="label-text">Remember me</span>
+                </label>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full btn btn-primary"
+                [disabled]="isLoading || !email || !password"
+              >
+                <span
+                  *ngIf="isLoading"
+                  class="mr-2 loading loading-spinner loading-sm"
+                ></span>
+                Login
+              </button>
+            </form>
+
+            <div class="my-6 divider">OR</div>
+
+            <div class="space-y-4">
+              <button class="w-full btn btn-outline" (click)="goToSignup()">
+                Create an account
+              </button>
+
+              <button class="w-full btn btn-ghost" (click)="goToHome()">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 12l2-2m0 0l7-7 7 7m-14 0l2 2m0 0l7 7 7-7m-14 0l2-2"
+                  />
+                </svg>
+                Return to Home
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-8 text-sm text-center text-base-content/50">
+      <p>© 2025 Veltrix. All rights reserved.</p>
+    </div>
+  </div>
+</div>

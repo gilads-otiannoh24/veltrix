@@ -1,0 +1,718 @@
+<div class="flex flex-col min-h-screen bg-base-100">
+  <!-- Top Navbar -->
+  <div
+    class="sticky flex justify-between items-center top-0 z-50 shadow-md p-4 bg-base-100"
+  >
+    <div class="">
+      <button class="btn btn-ghost lg:hidden" (click)="toggleSidebar()">
+        <i class="fas fa-bars text-primary"></i>
+      </button>
+      <a class="text-xl normal-case btn btn-ghost">
+        <app-logo></app-logo>
+        <span class="ml-2 text-base-content">Community</span>
+      </a>
+    </div>
+
+    <div class="hidden lg:flex">
+      <div class="form-control">
+        <div class="input-group">
+          <input
+            type="text"
+            placeholder="Search discussions..."
+            class="w-64 input input-bordered"
+            [(ngModel)]="searchQuery"
+            (keyup.enter)="search()"
+          />
+          <button class="btn btn-square btn-primary" (click)="search()">
+            <ng-icon name="heroMagnifyingGlass" size="20"></ng-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gap-2 flex items-center">
+      <!-- Theme toggle -->
+      <button class="btn btn-ghost btn-circle" (click)="toggleTheme()">
+        <ng-icon
+          *ngIf="!themeService.getDarkMode()"
+          size="20"
+          name="heroMoon"
+        ></ng-icon>
+        <ng-icon
+          *ngIf="themeService.getDarkMode()"
+          size="20"
+          name="heroSun"
+        ></ng-icon>
+      </button>
+
+      <!-- Notifications dropdown -->
+      <div class="dropdown dropdown-end">
+        <label
+          tabindex="0"
+          class="mr-4 btn btn-ghost btn-sm btn-circle indicator"
+        >
+          <ng-icon size="20" name="heroBell"> </ng-icon>
+          <span
+            *ngIf="unreadNotifications > 0"
+            class="indicator-item badge badge-primary badge-sm"
+            >{{ unreadNotifications }}</span
+          >
+        </label>
+        <div
+          tabindex="0"
+          class="dropdown-content z-[1] card card-compact w-96 p-2 shadow bg-base-100 text-base-content"
+        >
+          <div class="card-body">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-bold">Notifications</h3>
+              <button
+                *ngIf="unreadNotifications > 0"
+                class="btn btn-ghost btn-xs"
+                (click)="markAllNotificationsAsRead()"
+              >
+                Mark all as read
+              </button>
+            </div>
+            <div class="my-1 divider"></div>
+            <ul class="w-full menu bg-base-100">
+              <li
+                *ngFor="let notification of notifications"
+                [ngClass]="notification.read ? 'font-semibold bg-base-200' : ''"
+                class="mb-1 rounded-lg"
+              >
+                <a (click)="markNotificationAsRead(notification)">
+                  <div class="flex items-start gap-3">
+                    <div class="mt-1" [ngSwitch]="notification.type">
+                      <span class="text-blue-500" *ngSwitchCase="'reply'">
+                        <ng-icon size="20" name="heroArrowUturnRight"></ng-icon>
+                      </span>
+                      <span class="text-red-500" *ngSwitchCase="'like'">
+                        <ng-icon size="20" name="heroHeart"></ng-icon>
+                      </span>
+                      <span class="text-green-500" *ngSwitchCase="'mention'">
+                        <ng-icon size="20" name="heroAtSymbol"></ng-icon>
+                      </span>
+                      <span class="text-yellow-500" *ngSwitchCase="'system'">
+                        <ng-icon
+                          size="20"
+                          name="heroInformationCircle"
+                        ></ng-icon>
+                      </span>
+                    </div>
+                    <div>
+                      <p>{{ notification.message }}</p>
+                      <p class="text-xs opacity-60">
+                        {{ formatDate(notification.timestamp) }}
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li *ngIf="notifications.length === 0">
+                <div class="py-4 text-center text-base-content/70">
+                  No notifications
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- User profile dropdown -->
+      <div class="dropdown dropdown-end">
+        <label tabindex="0" class="btn btn-ghost btn-circle">
+          <div class="avatar avatar-online">
+            <div
+              class="size-10 flex items-center justify-center bg-primary font-bold text-xl rounded-full"
+            >
+              <span>{{ currentUser.name.charAt(0) }}</span>
+            </div>
+          </div>
+        </label>
+        <ul
+          tabindex="0"
+          class="menu dropdown-content mt-5 z-[1] p-2 shadow bg-base-200 rounded-box w-52"
+        >
+          <li class="menu-title">
+            <span>{{ currentUser.name }}</span>
+            <span class="block text-xs opacity-60">{{ currentUser.role }}</span>
+          </li>
+          <li>
+            <a><ng-icon name="heroUser"></ng-icon> Profile</a>
+          </li>
+          <li>
+            <a><ng-icon name="heroCog6Tooth"></ng-icon> Settings</a>
+          </li>
+          <li>
+            <a (click)="logout()"
+              ><ng-icon name="heroArrowLeftOnRectangle"></ng-icon> Logout</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile search (visible only on small screens) -->
+  <div class="px-4 pb-4 lg:hidden bg-base-200">
+    <div class="form-control">
+      <div class="fieldset">
+        <input
+          type="text"
+          placeholder="Search discussions..."
+          class="w-full input input-bordered"
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="search()"
+        />
+        <button class="btn btn-square btn-primary" (click)="search()">
+          <ng-icon name="heroMagnifyingGlass" size="20"></ng-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content with sidebar -->
+  <div class="">
+    <!-- Sidebar (fixed on desktop, slide-in on mobile) -->
+    <aside
+      [ngClass]="{
+        '': sidebarOpen
+      }"
+      class="w-[280px] hidden lg:block h-[calc(100dvh-80px)] z-31 bg-base-100 fixed overflow-y-auto"
+    >
+      <!-- Veltrix branding -->
+      <div
+        class="p-4 bg-gradient-to-r from-primary to-secondary text-primary-content"
+      >
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl font-bold">Veltrix</h2>
+          <button
+            class="lg:hidden btn btn-sm btn-circle btn-ghost"
+            (click)="toggleSidebar()"
+          >
+            <ng-icon name="heroXMark" size="20"></ng-icon>
+          </button>
+        </div>
+        <p class="text-sm opacity-80">Learn together, grow together</p>
+      </div>
+
+      <!-- Navigation menu -->
+      <div class="p-4">
+        <h3 class="mb-2 font-semibold text-primary">Categories</h3>
+        <ul class="w-full gap-2 menu bg-base-200 rounded-box">
+          <li>
+            <a
+              [class.active]="
+                selectedCategory === null && activeTab === 'discussions'
+              "
+              (click)="filterByCategory(null); activeTab = 'discussions'"
+            >
+              <span class="text-primary flex items-center">
+                <ng-icon size="20" name="heroChatBubbleLeftRight"></ng-icon>
+              </span>
+              All Discussions
+            </a>
+          </li>
+          <li *ngFor="let category of categories">
+            <a
+              [class.active]="selectedCategory === category.id"
+              (click)="filterByCategory(category.id)"
+            >
+              <span class="text-primary flex items-center">
+                <ng-icon size="20" name="{{ category.icon }}"></ng-icon>
+              </span>
+              {{ category.name }}
+              <span class="badge badge-sm badge-primary">{{
+                category.threads
+              }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Quick links -->
+      <div class="p-4">
+        <h3 class="mb-2 font-semibold text-primary">Quick Links</h3>
+        <ul class="w-full menu bg-base-200 rounded-box">
+          <li>
+            <a
+              [class.active]="activeTab === 'feature-requests'"
+              (click)="changeTab('feature-requests')"
+            >
+              <i class="fas fa-star text-primary"></i>
+              Feature Requests
+            </a>
+          </li>
+          <li>
+            <a
+              [class.active]="activeTab === 'bug-reports'"
+              (click)="changeTab('bug-reports')"
+            >
+              <i class="fas fa-bug text-primary"></i>
+              Bug Reports
+            </a>
+          </li>
+          <li>
+            <a
+              [class.active]="activeTab === 'announcements'"
+              (click)="changeTab('announcements')"
+            >
+              <i class="fas fa-bullhorn text-primary"></i>
+              Announcements
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- User stats -->
+      <div class="p-4">
+        <div class="p-4 shadow-sm bg-base-100 rounded-box">
+          <h3 class="mb-2 font-semibold text-primary">Your Stats</h3>
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center justify-between">
+              <span class="text-sm">Reputation</span>
+              <span class="font-semibold">{{ currentUser.reputation }}</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm">Posts</span>
+              <span class="font-semibold">24</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm">Joined</span>
+              <span class="font-semibold">{{
+                formatDate(currentUser.joinDate)
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Create new thread button -->
+      <div class="p-4">
+        <button (click)="createNewThread()" class="w-full btn btn-primary">
+          <i class="mr-2 fas fa-plus"></i> New Thread
+        </button>
+      </div>
+    </aside>
+
+    <!-- Overlay for mobile sidebar -->
+    <div
+      *ngIf="sidebarOpen"
+      class="fixed lg:hidden inset-0 z-30 bg-black bg-opacity-80"
+      (click)="toggleSidebar()"
+    ></div>
+
+    <!-- Main content area -->
+    <div
+      class="relative lg:left-[280px] left-0 p-4 md:p-6 w-full lg:w-[calc(100%-280px)]"
+    >
+      <!-- Loading state -->
+      <div *ngIf="isLoading" class="flex items-center justify-center h-64">
+        <span class="loading loading-spinner loading-lg text-primary"></span>
+      </div>
+
+      <div *ngIf="!isLoading" class="w-full">
+        <!-- Thread list view (shown when no thread is selected) -->
+        <div *ngIf="!selectedThread">
+          <!-- Community header -->
+          <div
+            class="flex flex-col items-start justify-between mb-6 md:flex-row md:items-center"
+          >
+            <div>
+              <h1 class="text-2xl font-bold md:text-3xl">
+                <span
+                  class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
+                >
+                  {{ getTabText() }}
+                </span>
+              </h1>
+
+              <p class="text-base-content/70">{{ getTabDescription() }}</p>
+            </div>
+            <button
+              (click)="createNewThread()"
+              class="mt-4 btn btn-primary md:mt-0"
+            >
+              <ng-icon name="heroPlus" size="20"></ng-icon>
+              New Thread
+            </button>
+          </div>
+
+          <!-- Thread list -->
+          <div class="card">
+            <div class="p-4 card-body">
+              <!-- Filters -->
+              <div class="flex justify-end mb-4">
+                <div class="dropdown dropdown-end">
+                  <label tabindex="0" class="btn btn-outline btn-sm">
+                    <ng-icon name="boxSort"></ng-icon>
+                    <span>{{
+                      sortBy === "newest"
+                        ? "Newest"
+                        : sortBy === "popular"
+                        ? "Popular"
+                        : "Unanswered"
+                    }}</span>
+                  </label>
+                  <ul
+                    tabindex="0"
+                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                  >
+                    <li><a (click)="changeSortOrder('newest')">Newest</a></li>
+                    <li><a (click)="changeSortOrder('popular')">Popular</a></li>
+                    <li>
+                      <a (click)="changeSortOrder('unanswered')">Unanswered</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Thread list -->
+              <div class="space-y-4">
+                <div
+                  *ngFor="let thread of getFilteredThreads()"
+                  (click)="viewThread(thread)"
+                  class="transition-colors duration-200 cursor-pointer card bg-base-200 hover:bg-base-300"
+                >
+                  <div class="p-4 card-body">
+                    <div class="flex items-start gap-3">
+                      <div class="hidden avatar placeholder sm:flex">
+                        <div
+                          class="w-12 rounded-full bg-primary text-primary-content"
+                        >
+                          <span>{{ thread.author.name.charAt(0) }}</span>
+                        </div>
+                      </div>
+                      <div class="flex-grow">
+                        <div class="flex flex-wrap items-center gap-2">
+                          <span class="text-warning flex items-center">
+                            <ng-icon
+                              *ngIf="thread.isPinned"
+                              name="heroBookmark"
+                              size="20"
+                            ></ng-icon>
+                          </span>
+
+                          <span class="text-error flex items-center">
+                            <ng-icon
+                              *ngIf="thread.isAnnouncement"
+                              name="heroSpeakerWave"
+                              size="20"
+                            ></ng-icon>
+                          </span>
+                          <h2 class="text-lg card-title">{{ thread.title }}</h2>
+                        </div>
+                        <div class="flex flex-wrap gap-1 mt-1">
+                          <span
+                            class="badge badge-sm"
+                            [ngClass]="
+                              thread.categoryId === selectedCategory
+                                ? 'badge-primary'
+                                : 'badge-outline'
+                            "
+                          >
+                            {{ thread.category }}
+                          </span>
+                          <span
+                            class="badge badge-sm badge-outline"
+                            *ngFor="let tag of thread.tags.slice(0, 3)"
+                            >{{ tag }}</span
+                          >
+                          <span
+                            *ngIf="thread.tags.length > 3"
+                            class="badge badge-sm badge-outline"
+                            >+{{ thread.tags.length - 3 }}</span
+                          >
+                        </div>
+                        <div class="mt-2 text-sm opacity-70">
+                          Started by {{ thread.author.name }} •
+                          {{ formatDate(thread.lastActivity) }}
+                        </div>
+                        <div class="flex items-center justify-between mt-3">
+                          <div class="flex items-center gap-4">
+                            <div class="flex items-center gap-1">
+                              <div class="flex items-center text-primary">
+                                <ng-icon
+                                  size="20"
+                                  name="heroChatBubbleBottomCenterText"
+                                ></ng-icon>
+                              </div>
+                              <span>{{ thread.replies }}</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                              <span class="flex items-center text-primary">
+                                <ng-icon size="20" name="heroEye"></ng-icon>
+                              </span>
+                              <span>{{ thread.views }}</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                              <span class="flex items-center text-success">
+                                <ng-icon
+                                  size="20"
+                                  name="heroChevronDoubleUp"
+                                ></ng-icon>
+                              </span>
+                              <span>{{ thread.votes }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Empty state -->
+              <div
+                *ngIf="getFilteredThreads().length === 0"
+                class="flex flex-col items-center justify-center py-12"
+              >
+                <span class="mb-4 text-5xl text-base-content/30">
+                  <ng-icon name="heroChatBubbleBottomCenterText"></ng-icon>
+                </span>
+                <h3 class="text-xl font-semibold">No discussions found</h3>
+                <p class="mt-2 text-center text-base-content/70">
+                  There are no discussions matching your criteria. Try adjusting
+                  your filters or create a new thread.
+                </p>
+                <button
+                  (click)="createNewThread()"
+                  class="mt-6 btn btn-primary"
+                >
+                  <ng-icon name="heroPlus"></ng-icon> Start a New Discussion
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Thread detail view (shown when a thread is selected) -->
+        <div class="px-4" *ngIf="selectedThread">
+          <!-- Thread header -->
+          <div class="flex items-start justify-between mb-4">
+            <button (click)="closeThread()" class="btn btn-ghost">
+              <ng-icon name="heroArrowLeft"></ng-icon> Back to Discussions
+            </button>
+          </div>
+
+          <!-- Thread title and metadata -->
+          <div class="mb-6 shadow-md card bg-base-100">
+            <div class="card-body">
+              <h2 class="mb-2 text-2xl font-bold">
+                <span
+                  class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
+                >
+                  {{ selectedThread.title }}
+                </span>
+              </h2>
+
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span class="badge badge-primary">{{
+                  selectedThread.category
+                }}</span>
+                <span
+                  class="badge badge-outline"
+                  *ngFor="let tag of selectedThread.tags"
+                  >{{ tag }}</span
+                >
+              </div>
+
+              <div class="flex items-center gap-2 text-sm opacity-70">
+                <i class="fas fa-eye"></i> {{ selectedThread.views }} views
+                <span class="mx-1">•</span>
+                <i class="fas fa-comment-alt"></i>
+                {{ selectedThread.replies }} replies
+                <span class="mx-1">•</span>
+                Last activity: {{ formatDate(selectedThread.lastActivity) }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Original post -->
+          <div class="mb-6 shadow-md card bg-base-100">
+            <div class="card-body">
+              <div class="flex items-start justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="avatar placeholder">
+                    <div
+                      class="w-12 rounded-full bg-primary text-primary-content"
+                    >
+                      <span>{{ selectedThread.author.name.charAt(0) }}</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="font-bold">
+                      {{ selectedThread.author.name }}
+                    </div>
+                    <div class="text-xs opacity-70">
+                      {{ selectedThread.author.role }}
+                    </div>
+                  </div>
+                </div>
+                <div class="text-sm opacity-70">
+                  {{ formatDate(selectedThread.posts[0].timestamp) }}
+                </div>
+              </div>
+
+              <div class="my-2 divider"></div>
+
+              <div class="prose max-w-none">
+                <p>{{ selectedThread.posts[0].content }}</p>
+              </div>
+
+              <div class="flex items-center justify-between mt-4">
+                <div class="flex items-center gap-2">
+                  <button
+                    class="btn btn-sm"
+                    [ngClass]="
+                      selectedThread.posts[0].userVote === 'up'
+                        ? 'btn-primary'
+                        : 'btn-outline'
+                    "
+                    (click)="vote(selectedThread.posts[0], 'up')"
+                  >
+                    <ng-icon name="heroChevronDoubleUp"></ng-icon>
+                    {{ selectedThread.posts[0].votes }}
+                  </button>
+                  <button
+                    class="btn btn-sm"
+                    [ngClass]="
+                      selectedThread.posts[0].userVote === 'down'
+                        ? 'btn-error'
+                        : 'btn-outline'
+                    "
+                    (click)="vote(selectedThread.posts[0], 'down')"
+                  >
+                    <ng-icon name="heroChevronDoubleDown"></ng-icon>
+                  </button>
+                </div>
+                <div>
+                  <button class="btn btn-sm btn-ghost">
+                    <i class="mr-1 fas fa-reply"></i> Reply
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Replies -->
+          <div *ngIf="selectedThread.posts.length > 1">
+            <h3 class="mb-4 text-xl font-semibold text-primary">
+              {{ selectedThread.posts.length - 1 }} Replies
+            </h3>
+
+            <div class="space-y-4">
+              <div
+                *ngFor="let post of selectedThread.posts.slice(1)"
+                class="shadow-md card bg-base-100"
+                [class.border-2]="post.isAcceptedAnswer"
+                [class.border-success]="post.isAcceptedAnswer"
+              >
+                <div class="card-body">
+                  <div class="flex items-start justify-between">
+                    <div class="flex items-center gap-3">
+                      <div class="avatar placeholder">
+                        <div
+                          class="w-12 rounded-full bg-primary text-primary-content"
+                        >
+                          <span>{{ post.author.name.charAt(0) }}</span>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="font-bold">{{ post.author.name }}</div>
+                        <div class="text-xs opacity-70">
+                          {{ post.author.role }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <div
+                        *ngIf="post.isAcceptedAnswer"
+                        class="gap-1 badge badge-success"
+                      >
+                        <i class="fas fa-check"></i> Accepted Answer
+                      </div>
+                      <div class="text-sm opacity-70">
+                        {{ formatDate(post.timestamp) }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="my-2 divider"></div>
+
+                  <div class="prose max-w-none">
+                    <p>{{ post.content }}</p>
+                  </div>
+
+                  <div class="flex items-center justify-between mt-4">
+                    <div class="flex items-center gap-2">
+                      <button
+                        class="btn btn-sm"
+                        [class.btn-primary]="post.userVote === 'up'"
+                        [class.btn-outline]="post.userVote !== 'up'"
+                        (click)="vote(post, 'up')"
+                      >
+                        <ng-icon size="20" name="heroChevronDoubleUp"></ng-icon>
+                        {{ post.votes }}
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline"
+                        [class.btn-error]="post.userVote === 'down'"
+                        (click)="vote(post, 'down')"
+                      >
+                        <ng-icon
+                          size="20"
+                          name="heroChevronDoubleDown"
+                        ></ng-icon>
+                      </button>
+                    </div>
+                    <div class="flex gap-2">
+                      <button
+                        *ngIf="
+                          selectedThread.categoryId === 4 &&
+                          !post.isAcceptedAnswer
+                        "
+                        class="btn btn-sm btn-success"
+                        (click)="markAsAnswer(post)"
+                      >
+                        <i class="mr-1 fas fa-check"></i> Mark as Answer
+                      </button>
+                      <button class="btn btn-sm btn-ghost">
+                        <i class="mr-1 fas fa-reply"></i> Reply
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reply form -->
+          <div class="mt-6 shadow-md card bg-base-100">
+            <div class="card-body">
+              <h3 class="mb-4 text-lg font-semibold text-primary">
+                Your Reply
+              </h3>
+
+              <textarea
+                class="w-full h-32 textarea textarea-bordered"
+                placeholder="Write your reply here..."
+                [(ngModel)]="replyContent"
+              ></textarea>
+
+              <div class="flex justify-end mt-4">
+                <button
+                  class="btn btn-primary"
+                  [disabled]="!replyContent.trim()"
+                  (click)="submitReply()"
+                >
+                  <i class="mr-2 fas fa-paper-plane"></i> Post Reply
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
