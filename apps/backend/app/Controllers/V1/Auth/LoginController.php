@@ -25,6 +25,9 @@ class LoginController extends BaseController
     {
         $rules = $this->getValidationRules();
 
+        /**
+         * @disregard
+         */
         if (! $this->validateData($this->request->getJSON(true), $rules, [], config('Config\Auth')->DBGroup)) {
             return $this->fail(
                 ['errors' => $this->validator->getErrors()],
@@ -42,7 +45,7 @@ class LoginController extends BaseController
             return $this->failUnauthorized($authResult['message']);
         }
 
-        return $this->respond(getJWTResponseArray($authResult['user']));
+        return $this->respond(getJWTResponseArray($authResult['user'], $credentials['remmberMe']));
     }
 
     protected function getValidationRules(): array
@@ -51,6 +54,4 @@ class LoginController extends BaseController
     }
 
     public function googleLogin(): void {}
-
-    public function facebookLogin(): void {}
 }

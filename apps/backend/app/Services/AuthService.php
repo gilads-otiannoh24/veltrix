@@ -7,6 +7,7 @@ use CodeIgniter\Shield\Models\TokenLoginModel;
 use CodeIgniter\Shield\Authentication\Authenticators\Session;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\Shield\Entities\User;
 
 class AuthService
 {
@@ -14,6 +15,11 @@ class AuthService
 
     private LoginModel $authLoginModel;
     private TokenLoginModel $authTokenLoginModel;
+    private bool $canLogIn = true;
+    private bool $canRegister = true;
+    private bool $canResetPassword = true;
+    private bool $canChangeEmail = true;
+    private bool $canChangePassword = true;
 
     public function __construct()
     {
@@ -25,6 +31,12 @@ class AuthService
     {
         /** @var Session $authenticator */
         $authenticator = auth('session')->getAuthenticator();
+
+        $this->loginAttemptTracking($credentials['email']);
+
+        if (!$this->canLogIn) {
+            return ['success' => false, 'message' => 'Too many login attempts.'];
+        }
 
         $result = $authenticator->check($credentials);
 
@@ -82,6 +94,22 @@ class AuthService
 
         if (!$user) {
             return;
+        }
+
+        $loginAttempts = $this->authLoginModel->where('user_id', $user->id)
+            ->where('date >=', date('Y-m-d H:i:s', strtotime('-1 hour')))
+            ->countAllResults();
+        if ($loginAttempts >= 5) {
+            $user->ban('Too many login attempts');
+            log_message('warning', "User {$user->email} has exceeded login attempts.");
+            $this->canLogIn = false;
+        }
+    }
+
+    public function unBanUser(User $user): void
+    {
+        if ($user->isBanned()) {
+            $user->unban();
         }
     }
 }

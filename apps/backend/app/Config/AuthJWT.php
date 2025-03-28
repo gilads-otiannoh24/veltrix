@@ -57,7 +57,7 @@ class AuthJWT extends ShieldAuthJWT
      * --------------------------------------------------------------------
      * Specifies the amount of time, in seconds, that a token is valid.
      */
-    public int $timeToLive = HOUR;
+    public int $timeToLive = DAY_7;
 
     /**
      * --------------------------------------------------------------------

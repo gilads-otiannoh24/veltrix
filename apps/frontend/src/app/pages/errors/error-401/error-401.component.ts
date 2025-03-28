@@ -8,7 +8,7 @@ import { LogoComponent } from '../../../components/shared/logo/logo.component';
   selector: 'app-error-401',
   templateUrl: './error-401.component.html',
   styleUrls: ['../error-pages.css'],
-  imports: [FormsModule, CommonModule, LogoComponent],
+  imports: [FormsModule, CommonModule, LogoComponent, RouterLink],
 })
 export class Error401Component implements OnInit {
   email = '';
@@ -21,30 +21,5 @@ export class Error401Component implements OnInit {
 
   ngOnInit(): void {
     // Add any initialization logic here
-  }
-
-  login(): void {
-    if (this.email && this.password) {
-      this.isLoading = true;
-
-      // Simulate login process
-      setTimeout(() => {
-        this.isLoading = false;
-        // In a real app, this would handle authentication
-        this.router.navigate(['/dashboard']);
-      }, 1500);
-    }
-  }
-
-  goToHome(): void {
-    this.router.navigate(['/']);
-  }
-
-  goToSignup(): void {
-    this.router.navigate(['/signup']);
-  }
-
-  forgotPassword(): void {
-    this.router.navigate(['/forgot-password']);
   }
 }
