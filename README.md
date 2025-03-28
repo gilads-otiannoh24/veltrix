@@ -49,8 +49,6 @@ Veltrix is an innovative study tool designed to help students study more effecti
 │── /docker (Docker configurations)
 │── /tools (Scripts, CI/CD pipelines)
 │── /docs (Documentation)
-│── package.json (If using Node for tooling)
-│── composer.json (PHP dependencies)
 │── README.md
 │── .gitignore
 │── .editorconfig
