@@ -15,7 +15,6 @@ Veltrix is an innovative study tool designed to help students study more effecti
 ### Frontend
 
 - **Angular** - Modern and reactive UI framework.
-- **AlpineJS (Optional Enhancements)** - For lightweight UI interactions.
 - **Tailwind CSS** - For fast and efficient styling.
 - **Quill.js** - A rich text editor for note editing.
 
@@ -28,6 +27,35 @@ Veltrix is an innovative study tool designed to help students study more effecti
 ### AI Integration
 
 - **Google Gemini API (or other AI models)** - AI-powered text summarization for generating short notes.
+
+## Folder Structure (Monorepo)
+
+```
+/study-tool-monorepo
+│── /apps
+│   ├── /backend (CodeIgniter 4)
+│   │   ├── app/
+│   │   ├── public/
+│   │   ├── writable/
+│   │   ├── .env
+│   │   ├── composer.json
+│   │   ├── index.php
+│   ├── /frontend (Angular)
+│   │   ├── src/
+│   │   ├── angular.json
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│── /libs (Shared libraries, utils)
+│── /docker (Docker configurations)
+│── /tools (Scripts, CI/CD pipelines)
+│── /docs (Documentation)
+│── package.json (If using Node for tooling)
+│── composer.json (PHP dependencies)
+│── README.md
+│── .gitignore
+│── .editorconfig
+│── .github/workflows (For GitHub Actions)
+```
 
 ## Installation
 
@@ -47,7 +75,7 @@ Ensure you have the following installed:
 1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/veltrix.git
-   cd veltrix/backend
+   cd veltrix/apps/backend
    ```
 2. Install dependencies:
    ```bash
@@ -101,4 +129,4 @@ Contributions are welcome! Feel free to open an issue or submit a pull request.
 
 ## Contact
 
-For inquiries, reach out via [your-email@example.com] or visit the [GitHub Repository](https://github.com/yourusername/veltrix).
+For inquiries, reach out via [ochiengian383@gmail.com] or visit the [GitHub Repository](https://github.com/gilads-otiannoh24/veltrix).
